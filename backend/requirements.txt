@@ -1,0 +1,12 @@
+Django==1.11.3
+django-filter==1.0.4
+djangorestframework==3.6.3
+pytz==2018.3
+django-cors-headers
+djangorestframework-jwt==1.11.0
+django-jet
+google-api-python-client==1.4.1
+Pillow
+djoser==1.1.5
+python-social-auth==0.3.6
+social-auth-app-django==2.1.0
