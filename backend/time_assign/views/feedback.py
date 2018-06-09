@@ -8,9 +8,13 @@ from time_assign.serializers.feedback import FeedbackSerializer
 
 
 class FeedbackView(APIView):
-    def get(self, request, format=None):
-        companies = Feedback.objects.all()
-        serializer = FeedbackSerializer(companies, many=True)
+    def get(self, request, pk=None, format=None):
+        if pk:
+            feedback = Feedback.objects.get(pk=pk)
+            serializer = FeedbackSerializer(feedback, context={'request': request})
+        else:
+            feedbacks = Feedback.objects.all()
+            serializer = FeedbackSerializer(feedbacks, many=True, context={'request': request})
         return Response(serializer.data)
 
     def post(self, request, format=None):

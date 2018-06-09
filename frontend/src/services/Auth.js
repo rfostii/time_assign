@@ -15,7 +15,7 @@ export function login(email, password) {
         email,
         password
     })
-    .catch(function (error) {
+    .catch((error) => {
       // raise different exception if due to invalid credentials
       if (get(error, 'response.status') === 400) {
           throw new InvalidCredentialsException(error);
@@ -30,7 +30,7 @@ export function createUser(email, password) {
         email, 
         password
       })
-      .catch(function (error) {
+      .catch((error) => {
         // raise different exception if due to invalid credentials
         if (get(error, 'response.status') === 400) {
             throw new InvalidCredentialsException(error);
@@ -42,7 +42,7 @@ export function createUser(email, password) {
   export function refresh() {
     return axios
       .post(URL + REFRESH)
-      .catch(function (error) {
+      .catch((error) => {
         // raise different exception if due to invalid credentials
         if (get(error, 'response.status') === 400) {
             throw new InvalidCredentialsException(error);

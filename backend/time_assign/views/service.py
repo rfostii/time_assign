@@ -8,9 +8,13 @@ from time_assign.serializers.service import ServiceSerializer
 
 
 class ServiceView(APIView):
-    def get(self, request, format=None):
-        companies = Service.objects.all()
-        serializer = ServiceSerializer(companies, many=True)
+    def get(self, request, pk=None, format=None):
+        if pk:
+            service = Service.objects.get(pk=pk)
+            serializer = ServiceSerializer(service, context={'request': request})
+        else:
+            services = Service.objects.all()
+            serializer = ServiceSerializer(services, many=True, context={'request': request})
         return Response(serializer.data)
 
     def post(self, request, format=None):

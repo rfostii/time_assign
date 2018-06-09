@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container, Grid } from 'semantic-ui-react';
 import Navigation from '../components/Navigation/Navigation'; 
 import Categories from '../components/Category/Categories'; 
-import Search from '../components/Search/Search';
+import Search from '../features/SearchCompany';
 import './Home.css';
 
 class Home extends Component {  

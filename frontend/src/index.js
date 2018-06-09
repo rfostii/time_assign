@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, Redirect, browserHistory } from 'react-router';
+import { Router, Route, browserHistory } from 'react-router';
 import 'semantic-ui-css/semantic.min.css';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';

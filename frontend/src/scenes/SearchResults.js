@@ -4,7 +4,7 @@ import {
     Button, Icon, Breadcrumb, Segment
 } from 'semantic-ui-react';
 import Navigation from '../components/Navigation/Navigation'; 
-import Search from '../components/Search/Search';
+import Search from '../features/SearchCompany';
 import Filter from '../features/Filter';
 import './SearchResults.css';
 

@@ -43,7 +43,7 @@ class ClientAdmin(UserAdmin):
 
 
 class CompanyAdmin(admin.ModelAdmin):
-    pass
+    prepopulated_fields = {'slug': ('name',)}
 
 
 class ServiceAdmin(admin.ModelAdmin):

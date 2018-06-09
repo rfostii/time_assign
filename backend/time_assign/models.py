@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.utils.http import urlquote
 from django.utils.translation import ugettext_lazy as _
 from django.core.mail import send_mail
+from django.utils.text import slugify
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from time_assign.managers.client import ClientManager
 
@@ -22,7 +23,7 @@ CURRENCIES = (
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
-    logo = models.ImageField(upload_to='static/images/logos', blank=True, null=True)
+    logo = models.ImageField(upload_to='images/logos', blank=True, null=True)
 
     class Meta:
         verbose_name = _('category')
@@ -37,11 +38,12 @@ class Company(models.Model):
     owner = models.ForeignKey('Client')
     category = models.ForeignKey(Category)
     name = models.CharField(max_length=255)
-    logo = models.ImageField(upload_to='static/images/logos')
+    logo = models.ImageField(upload_to='images/logos')
     city = models.CharField(max_length=255)
     street = models.CharField(max_length=255)
     house_number = models.IntegerField()
     phone_number = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, unique = True, default='')
 
     class Meta:
         verbose_name = _('company')
@@ -50,11 +52,18 @@ class Company(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):        
+        return reverse('company', args=[str(self.slug)])
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name, allow_unicode=True)
+        super(Company, self).save(*args, **kwargs)
+
 
 class Service(models.Model):
     specialist = models.ForeignKey('Client')
     company = models.ForeignKey(Company)
-    image = models.ImageField(upload_to='static/images/service')
+    image = models.ImageField(upload_to='images/service')
     name = models.CharField(max_length=255)
     description = models.TextField()
     price = models.FloatField()

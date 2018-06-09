@@ -8,9 +8,13 @@ from time_assign.serializers.client import ClientSerializer
 
 
 class ClientView(APIView):
-    def get(self, request, format=None):
-        companies = Client.objects.all()
-        serializer = ClientSerializer(companies, many=True)
+    def get(self, request, pk=None, format=None):
+        if pk:
+            client = Client.objects.all()
+            serializer = ClientSerializer(client, context={'request': request})            
+        else:
+            clients = Client.objects.all()
+            serializer = ClientSerializer(clients, many=True, context={'request': request})
         return Response(serializer.data)
 
     def post(self, request, format=None):

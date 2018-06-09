@@ -8,9 +8,13 @@ from time_assign.serializers.assigment import AssigmentSerializer
 
 
 class AssigmentView(APIView):
-    def get(self, request, format=None):
-        companies = Assigment.objects.all()
-        serializer = AssigmentSerializer(companies, many=True)
+    def get(self, request, pk=None, format=None):
+        if pk:
+            assigment = Assigment.objects.get(pk=pk)
+            serializer = AssigmentSerializer(assigment, context={'request': request})            
+        else:
+            assigments = Assigment.objects.all()
+            serializer = AssigmentSerializer(assigments, many=True, context={'request': request})
         return Response(serializer.data)
 
     def post(self, request, format=None):
