@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { URL } from '../config/Api';
+import { URL } from 'config/Api';
 
 export const apiClient = function(token) {
     const params = {

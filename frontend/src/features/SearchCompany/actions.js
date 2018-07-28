@@ -1,5 +1,5 @@
 import * as actionType from './types';
-import { search } from '../../services/Company';
+import { search } from 'services/Company';
 
 
 export const searchCompaniesStart = () => ({ 

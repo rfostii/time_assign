@@ -1,5 +1,5 @@
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { FILTER } from '../Filter/types';
+import { FILTER } from 'features/Filter/types';
 import queryString from 'query-string';
 import assignIn from 'lodash/assignIn';
 import omitBy from 'lodash/omitBy';

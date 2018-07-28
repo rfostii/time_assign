@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SignUpForm from '../features/SignUpForm';
+import SignUpForm from 'features/SignUpForm';
 import { Container } from 'semantic-ui-react';
 
 

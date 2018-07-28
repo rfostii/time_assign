@@ -1,5 +1,5 @@
-import { createUser } from '../../services/Auth';
-import { getToken } from '../Auth/actions';
+import { createUser } from 'services/Auth';
+import { getToken } from 'features/Auth/actions';
 
 
 export const signup = (email, password) => dispatch => 

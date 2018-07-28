@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as actionType from '../features/Auth/types';
+import * as actionType from 'features/Auth/types';
 
 
 export default store => next => action => { 

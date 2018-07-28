@@ -3,9 +3,9 @@ import {
     Container, Grid, Dimmer, Loader, Item, Label,
     Button, Icon, Breadcrumb, Segment
 } from 'semantic-ui-react';
-import Navigation from '../components/Navigation'; 
-import Search from '../features/SearchCompany';
-import Filter from '../features/Filter';
+import Navigation from 'components/Navigation'; 
+import Search from 'features/SearchCompany';
+import Filter from 'features/Filter';
 import './SearchResults.css';
 
 class SearchResults extends Component {  

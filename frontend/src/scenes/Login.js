@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Auth from '../features/Auth';
+import Auth from 'features/Auth';
 import { Container } from 'semantic-ui-react';
 
 

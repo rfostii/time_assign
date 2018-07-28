@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getToken } from './actions';
-import Auth from '../../components/Auth';
+import Auth from 'components/Auth';
 
 
 const mapStateToProps = state => state.auth;

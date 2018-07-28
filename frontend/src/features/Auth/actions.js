@@ -1,5 +1,5 @@
 import * as actionType from './types';
-import { login } from '../../services/Auth';
+import { login } from 'services/Auth';
 
 export const setToken = payload => ({ type: actionType.SET_TOKEN, payload });
 

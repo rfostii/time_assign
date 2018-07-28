@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { signup } from './actions';
-import SignUpForm from '../../components/SignUpForm';
+import SignUpForm from 'components/SignUpForm';
 
 
 const mapDispatchToProps = dispatch => ({  

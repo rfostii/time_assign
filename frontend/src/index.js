@@ -20,7 +20,7 @@ render(
       <Route exact path="/login" component={Login} />
       <Route exact path="/signup" component={SignUp} />
       <Route exact path="/search" component={SearchResults} />
-      <Route exact path="/company" component={CompanyPage} />
+      <Route exact path="/company/:slug" component={CompanyPage} />
     </Router>
   </Provider>,
   document.getElementById('root')

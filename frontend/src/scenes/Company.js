@@ -4,8 +4,8 @@ import {
     Button, Icon, Breadcrumb
 } from 'semantic-ui-react'; 
 import './CompanyPage.css';
-import Navigation from '../components/Navigation'; 
-import TimeAssignCalendar from '../components/Calendar';
+import Navigation from 'components/Navigation'; 
+import TimeAssignCalendar from 'components/Calendar';
 
 
 export default class CompanyPage extends Component {
