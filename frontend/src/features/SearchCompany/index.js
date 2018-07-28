@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { 
     searchCompanies, searchCompaniesSelect, searchCompaniesReset 
 } from './actions';
-import Search from '../../components/SearchCompany/Search';
+import Search from '../../components/SearchCompany';
 
 
 const mapStateToProps = state => {

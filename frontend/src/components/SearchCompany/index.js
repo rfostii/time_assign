@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import { Search as BaseSearch, Item } from 'semantic-ui-react';
 import './Search.css';
 
@@ -16,12 +17,16 @@ export default class Search extends Component {
         this.props.reset && this.props.reset();
     }
 
-    resultRenderer(result) {
+    resultRenderer(result) {        
         return (
-            <Item key={3}>
+            <Item key={result.id}>
                 <Item.Image size='tiny' src={result.logo} />                
                 <Item.Content verticalAlign='middle'>
-                    <Item.Header as='a' href={result.url}>{result.name}</Item.Header>
+                    <Item.Header>
+                        <Link to={'/company/' + result.slug} 
+                              className="company__link"
+                              activeClassName="company__link--active">{result.name}</Link>                    
+                    </Item.Header>
                 </Item.Content>
             </Item>
         );

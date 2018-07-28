@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { filter } from './actions';
-import Filter from '../../components/Filter/Filter';
+import Filter from '../../components/Filter';
 
 
 const mapStateToProps = state => state.routing.locationBeforeTransitions.query;

@@ -7,11 +7,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^jet/', include('jet.urls', 'jet')),
     url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
-    url(r'^admin/', admin.site.urls),
-    url(r'^auth/', include('djoser.urls.base')),
-    url(r'^auth/', include('djoser.urls.authtoken')),
-    url(r'^auth/', include('djoser.urls.jwt')),
-    url(r'^auth/', include('djoser.social.urls')),
+    url(r'^admin/', admin.site.urls),        
+    url(r'^auth/', include('djoser.urls')),
+    url(r'^auth/', include('djoser.urls.jwt')),    
 
     url(r'^api/', include('time_assign.urls', 'api')),
 ]

@@ -1,7 +1,7 @@
-export const URL = process.env.API_URL || '/';
+export const URL = process.env.API_URL || 'http://localhost:8000/';
 
 export const SIGNUP = 'auth/users/create/';
 export const LOGIN = 'auth/jwt/create/';
 export const REFRESH = 'auth/jwt/refresh/';
 
-export const SEARCH_COMPANY = 'api/companies';
+export const SEARCH_COMPANY = 'api/companies/';

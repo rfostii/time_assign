@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { 
     Container, Grid, Dimmer, Loader, Item, Label,
     Button, Icon, Breadcrumb
-} from 'semantic-ui-react';
+} from 'semantic-ui-react'; 
 import './CompanyPage.css';
-import Navigation from '../components/Navigation/Navigation'; 
-import TimeAssignCalendar from '../components/Calendar/Calendar';
+import Navigation from '../components/Navigation'; 
+import TimeAssignCalendar from '../components/Calendar';
 
 
 export default class CompanyPage extends Component {

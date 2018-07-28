@@ -15,7 +15,7 @@ const searchCompanyReducer = (state = initialState, action) => {
     case actionType.SEARCH_COMPANY_RESULT:
         return { 
             ...state, 
-            results: [...action.payload],
+            results: action.payload.map(i => ({ key: i.id, ...i })),
             isLoading: false 
         };
     case actionType.SEARCH_COMPANY_SELECT:

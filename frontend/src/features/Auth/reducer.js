@@ -1,10 +1,13 @@
 import * as actionType from './types';
 
-const tokenInitialState = null;
+const tokenInitialState = {
+  token: null,
+  authorized: false
+};
 const tokenReducer = (state = tokenInitialState, action) => {
   switch(action.type) {
     case actionType.SET_TOKEN:
-      return action.payload;
+      return {...state, authorized: true, token: action.payload };
     default:
       return state;
   }

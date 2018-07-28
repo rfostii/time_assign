@@ -57,12 +57,12 @@ const store = createStore(
 syncHistoryWithStore(browserHistory, store);
 
 store.subscribe(() => {
-  const { token } = store.getState();
+  const { auth } = store.getState();
 
-  if (token) {
-    axios.defaults.headers.common['Authorization'] = 'Token ' + token;
+  if (auth.token) {
+    axios.defaults.headers.common['Authorization'] = 'Token ' + auth.token;
   } else {
-    axios.defaults.headers.common['Authorization'] = null;
+    axios.defaults.headers.common['Authorization'] = '';
   }
   saveState(store.getState());
 });

@@ -1,6 +1,7 @@
 import React from 'react';
 import './Auth.css';
 import { Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
 import { 
   Container, Button, Form, Grid, Header, Message, Segment 
@@ -30,6 +31,10 @@ const Control = addErrorMessageToField(Form.Input);
 
 const Auth = props => {
   const { handleSubmit, submitting } = props;
+  
+  if (props.authorized) {
+    browserHistory.push('/');
+  }
 
   return (
     <Container className="authorization-form">
@@ -40,7 +45,7 @@ const Auth = props => {
       >
         <Grid.Column style={{ maxWidth: 450 }}>
           <Header as='h2' color='teal' textAlign='center'>                
-            Ввійдіть в свій профіль
+            Авторизація
           </Header>
           <Form size='large' error onSubmit={handleSubmit}>
             <Segment>              
@@ -71,7 +76,7 @@ const Auth = props => {
             </Segment>
           </Form>
           <Message>
-            Немаєте власного профільлю? <Link to="/signup">Увійти</Link>
+            Немаєте власного профільлю? <Link to="/signup">Створити</Link>
           </Message>
         </Grid.Column>
       </Grid>
