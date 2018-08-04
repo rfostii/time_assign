@@ -6,7 +6,7 @@ import { Container } from 'semantic-ui-react';
 class SignUp extends Component {
   render() {
     return (
-      <Container className="signup-page">        
+      <Container className="tm-signup-page">        
         <SignUpForm />    
       </Container>
     );  

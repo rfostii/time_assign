@@ -24,8 +24,8 @@ export default class Search extends Component {
                 <Item.Content verticalAlign='middle'>
                     <Item.Header>
                         <Link to={'/company/' + result.slug} 
-                              className="company__link"
-                              activeClassName="company__link--active">{result.name}</Link>                    
+                              className="tm-company__link"
+                              activeClassName="tm-company__link--active">{result.name}</Link>                    
                     </Item.Header>
                 </Item.Content>
             </Item>
@@ -43,12 +43,12 @@ export default class Search extends Component {
     }
     
     render() {
-        const { isLoading, value, results } = this.props;
+        const { isLoading, results } = this.props;
 
         return <BaseSearch action='Пошук' 
                 fluid
                 size='huge'    
-                className='search-field'          
+                className='tm-search-field'          
                 minCharacters={3}
                 noResultsMessage='Нічого не знайдено'
                 placeholder='Пошук...'

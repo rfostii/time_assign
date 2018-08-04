@@ -6,7 +6,7 @@ import { Container } from 'semantic-ui-react';
 class Login extends Component {
   render() {
     return (
-      <Container className="login-page">        
+      <Container className="tm-login-page">        
         <Auth />    
       </Container>
     );  

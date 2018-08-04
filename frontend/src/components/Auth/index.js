@@ -37,7 +37,7 @@ const Auth = props => {
   }
 
   return (
-    <Container className="authorization-form">
+    <Container className="tm-authorization-form">
       <Grid
         textAlign='center'
         style={{ height: '100%' }}

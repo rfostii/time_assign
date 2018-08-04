@@ -15,7 +15,8 @@ class CompanySerializer(serializers.HyperlinkedModelSerializer):
         model = Company
         fields = (
             'id', 'name', 'category', 'logo', 'city', 
-            'street', 'house_number', 'phone_number', 'slug', 'url'
+            'street', 'house_number', 'phone_number', 'slug', 'url', 
+            'description',
         )
         lookup_field = 'slug'
         extra_kwargs = {

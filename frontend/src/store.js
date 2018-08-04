@@ -1,33 +1,34 @@
-import axios from 'axios';
 import { compose, createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 import { browserHistory } from 'react-router';
 import thunk from 'redux-thunk';
-import rootReducer from './features';
+import rootReducer from 'features';
 
-const LOCAL_STORAGE_KEY = 'time_assign';
+const LOCAL_STORAGE_KEY = 'time_assign_token';
 
-const saveState = state => {
-  try {
-    const serializedState = JSON.stringify(state);
-    localStorage.setItem(LOCAL_STORAGE_KEY, serializedState);
-  } catch(e) {}
+const saveToken = token => {
+  localStorage.setItem(LOCAL_STORAGE_KEY, token);
 };
 
-const getState = () => {
+const getToken = () => {
   try {
-    const state = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (state === null) {
-      return undefined;
+    const token = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (!token) {
+      return;
     }
-    return JSON.parse(state);
+    return {
+      auth: {
+        token,
+        authorized: true,
+      }
+    };
   } catch(e) {
-    return undefined;
+    return;
   }
 };
 
-const initialState = getState();
+const initialState = getToken();
 const enhancers = [];
 const middleware = [
   createLogger(),
@@ -57,14 +58,8 @@ const store = createStore(
 syncHistoryWithStore(browserHistory, store);
 
 store.subscribe(() => {
-  const { auth } = store.getState();
-
-  if (auth.token) {
-    axios.defaults.headers.common['Authorization'] = 'Token ' + auth.token;
-  } else {
-    axios.defaults.headers.common['Authorization'] = '';
-  }
-  saveState(store.getState());
+  const { auth = {} } = store.getState();
+  saveToken(auth.token);
 });
 
 export default store;

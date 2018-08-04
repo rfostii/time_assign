@@ -1,7 +1,9 @@
-import * as actionType from './types';
 import { login } from 'services/Auth';
 
-export const setToken = payload => ({ type: actionType.SET_TOKEN, payload });
+
+export const SET_TOKEN = 'SET_TOKEN';
+
+export const setToken = payload => ({ type: SET_TOKEN, payload });
 
 export const getToken = (email, password) => dispatch => 
   login(email, password)

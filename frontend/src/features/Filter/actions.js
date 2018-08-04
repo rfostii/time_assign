@@ -1,6 +1,5 @@
-import * as actionType from './types';
-
+export const FILTER = 'FILTER';
 
 export const filter = payload => {
-    return ({ type: actionType.FILTER, payload });
+    return ({ type: FILTER, payload });
 };

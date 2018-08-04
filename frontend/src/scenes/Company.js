@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { 
-    Container, Grid, Dimmer, Loader, Item, Label,
-    Button, Icon, Breadcrumb
+    Container, Grid, Breadcrumb, Divider
 } from 'semantic-ui-react'; 
-import './CompanyPage.css';
 import Navigation from 'components/Navigation'; 
+import Company from 'features/Company';
 import TimeAssignCalendar from 'components/Calendar';
+import './Company.css';
 
 
 export default class CompanyPage extends Component {
-  render() {
+  render() {    
     return (
-        <Container className="company-page">
+        <Container className="tm-company-page">
             <Navigation />              
             <Breadcrumb className="ta-breadcrumb">
                 <Breadcrumb.Section href="/">Home</Breadcrumb.Section>
@@ -25,7 +25,9 @@ export default class CompanyPage extends Component {
                     <Grid.Column width={4}>
                     
                     </Grid.Column>
-                    <Grid.Column width={12}>                                                
+                    <Grid.Column width={12}>   
+                        <Company />
+                        <Divider />                                             
                         <TimeAssignCalendar/>                
                     </Grid.Column>
                 </Grid.Row>

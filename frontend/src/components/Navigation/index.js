@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { Container, Visibility, Menu } from 'semantic-ui-react';
+import { Visibility, Menu } from 'semantic-ui-react';
 
 export default props => ( 
     <Visibility once={false}>   

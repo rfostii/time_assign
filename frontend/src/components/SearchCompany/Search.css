@@ -1,7 +1,7 @@
-.search-field .input {
+.tm-search-field .input {
     display: flex;
 }
 
-.company__link {
+.tm-company__link {
     vertical-align: sub;
 }

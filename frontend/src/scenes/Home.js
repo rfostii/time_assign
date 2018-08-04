@@ -8,7 +8,7 @@ import './Home.css';
 class Home extends Component {  
   render() {
     return (
-        <Container className="homepage">
+        <Container className="tm-home-page">
             <Navigation />  
             <Grid celled>
                 <Grid.Row>

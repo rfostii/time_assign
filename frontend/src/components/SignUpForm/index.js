@@ -1,8 +1,7 @@
 import React from 'react';
-import './SignUpForm.css';
 import { Field, reduxForm } from 'redux-form';
 import { Container, Button, Form, Grid, Header, Segment, Message } from 'semantic-ui-react';
-
+import './SignUpForm.css';
 
 const required = value => {
   return value ? undefined : 'Поле є обов\'язковим';
@@ -46,7 +45,7 @@ const Control = addErrorMessageToField(Form.Input);
 const SignUpForm = props => {
   const { handleSubmit, submitting } = props;
 
-  return (<Container className="signup-form">
+  return (<Container className="tm-signup-form">
     <Grid
       textAlign='center'
       style={{ height: '100%' }}

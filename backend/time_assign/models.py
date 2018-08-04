@@ -45,6 +45,7 @@ class Company(models.Model):
     house_number = models.IntegerField()
     phone_number = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique = True, default='')
+    description = models.TextField(default='', blank=True)
 
     class Meta:
         verbose_name = _('company')

@@ -1,4 +1,5 @@
-import * as actionType from './types';
+import { SET_TOKEN } from './actions';
+
 
 const tokenInitialState = {
   token: null,
@@ -6,7 +7,7 @@ const tokenInitialState = {
 };
 const tokenReducer = (state = tokenInitialState, action) => {
   switch(action.type) {
-    case actionType.SET_TOKEN:
+    case SET_TOKEN:
       return {...state, authorized: true, token: action.payload };
     default:
       return state;

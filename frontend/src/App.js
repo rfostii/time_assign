@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
-import Auth from './features/Auth'; 
-import Navigation from './components/Navigation/Navigation'; 
-import Categories from './components/Categories'; 
-import Filter from './features/Filter'; 
+import 'App.css';
+import Auth from 'features/Auth'; 
+import Navigation from 'components/Navigation/Navigation'; 
+import Categories from 'components/Categories'; 
+import Filter from 'features/Filter'; 
 
 
 class App extends Component {

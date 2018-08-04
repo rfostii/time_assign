@@ -10,7 +10,7 @@ BigCalendar.momentLocalizer(moment);
 export default props => (
   <React.Fragment>
     <BigCalendar
-      className="time-assign-calendar"
+      className="tm-calendar"
       events={[]}
       startAccessor='startDate'
       endAccessor='endDate'

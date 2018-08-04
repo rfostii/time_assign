@@ -1,4 +1,10 @@
-import * as actionType from './types';
+import {
+    SEARCH_COMPANY_START,
+    SEARCH_COMPANY_END,
+    SEARCH_COMPANY_RESULT,
+    SEARCH_COMPANY_SELECT,
+    SEARCH_COMPANY_RESET,
+} from './actions';
 
 const initialState = {
     isLoading: false,
@@ -8,19 +14,19 @@ const initialState = {
 
 const searchCompanyReducer = (state = initialState, action) => {
   switch(action.type) {
-    case actionType.SEARCH_COMPANY_START:
+    case SEARCH_COMPANY_START:
         return { ...state, isLoading: true };
-    case actionType.SEARCH_COMPANY_END:
+    case SEARCH_COMPANY_END:
         return { ...state, isLoading: false };
-    case actionType.SEARCH_COMPANY_RESULT:
+    case SEARCH_COMPANY_RESULT:
         return { 
             ...state, 
             results: action.payload.map(i => ({ key: i.id, ...i })),
             isLoading: false 
         };
-    case actionType.SEARCH_COMPANY_SELECT:
+    case SEARCH_COMPANY_SELECT:
         return { ...state, value: action.payload };
-    case actionType.SEARCH_COMPANY_RESET:
+    case SEARCH_COMPANY_RESET:
         return initialState;
     default:
         return state;

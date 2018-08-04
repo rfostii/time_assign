@@ -1,10 +1,21 @@
 import axios from 'axios';
 import { URL } from 'config/Api';
 
-export const apiClient = function(token) {
+let apiClient = axios;
+
+export const configureApiClient = function(token) {
     const params = {
         baseURL: URL,
         headers: { 'Authorization': 'Token ' + token }
     };
-    return axios.create(params);
+    apiClient = axios.create(params);
+    return apiClient;
 };
+
+export const get = function() {
+    return apiClient.get.apply(apiClient, arguments); 
+}
+
+export const post = function() {
+    return apiClient.post.apply(apiClient, arguments); 
+}
