@@ -20,3 +20,16 @@ export function getCompanyBySlug(slug) {
       throw error;
   });
 }
+
+export function getCompanies(company_id) {
+  return axios
+    .get(URL + GET_COMPANY, {
+      params: {
+        company_id
+      }
+    })
+    .then(resp => resp.data)
+    .catch((error) => {      
+      throw error;
+  });
+}

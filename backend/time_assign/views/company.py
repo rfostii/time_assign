@@ -18,12 +18,15 @@ class CompaniesView(generics.ListCreateAPIView):
     lookup_field = 'slug'
 
     def get_queryset(self):        
-        category = self.request.query_params.get('category')
+        company_id = self.request.query_params.get('company_id')
         
         companies = Company.objects.all()        
-        if category:
-            companies = Company.objects.filter(category__id=category)
-
+        if company_id:
+            company = get_object_or_404(Company, pk=company_id)
+            companies = Company.objects.filter(
+                category=company.category,
+                city=company.city
+            )
         return companies
 
 

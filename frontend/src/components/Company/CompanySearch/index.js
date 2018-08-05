@@ -23,7 +23,7 @@ export default class Search extends Component {
                 <Item.Image size='tiny' src={result.logo} />                
                 <Item.Content verticalAlign='middle'>
                     <Item.Header>
-                        <Link to={'/company/' + result.slug} 
+                        <Link to={'/search/' + result.company_id}
                               className="tm-company__link"
                               activeClassName="tm-company__link--active">{result.name}</Link>                    
                     </Item.Header>
@@ -37,13 +37,14 @@ export default class Search extends Component {
     }
     
     handleSearchChange(e, { value }) {
+        this.props.onChange(value);
         if (value.length > 2) {
             this.props.onSearch && this.props.onSearch(value);
         }        
     }
     
     render() {
-        const { isLoading, results } = this.props;
+        const { isLoading, results, value } = this.props;
 
         return <BaseSearch action='Пошук' 
                 fluid
@@ -56,6 +57,8 @@ export default class Search extends Component {
                 resultRenderer={this.resultRenderer}
                 onResultSelect={this.handleResultSelect}
                 onSearchChange={this.handleSearchChange}
-                results={results}/>;
+                results={results}
+                value={value}
+            />;
     }    
 };

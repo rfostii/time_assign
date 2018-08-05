@@ -3,7 +3,7 @@ import {
     Container, Grid, Breadcrumb, Divider
 } from 'semantic-ui-react'; 
 import Navigation from 'components/Navigation'; 
-import Company from 'features/Company';
+import CompanyInfo from 'features/Company/CompanyInfo';
 import TimeAssignCalendar from 'components/Calendar';
 import './Company.css';
 
@@ -26,7 +26,7 @@ export default class CompanyPage extends Component {
                     
                     </Grid.Column>
                     <Grid.Column width={12}>   
-                        <Company />
+                        <CompanyInfo />
                         <Divider />                                             
                         <TimeAssignCalendar/>                
                     </Grid.Column>

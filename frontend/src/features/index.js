@@ -1,15 +1,13 @@
 import { combineReducers } from 'redux'
-import routerReducer from './common/routingReducer';
-import { reducer as formReducer } from 'redux-form'
-import authReducer from './Auth/reducer';
-import searchCompanyReducer from './SearchCompany/reducer';
-import companyReducer from './Company/reducer';
+import routing from './common/routingReducer';
+import { reducer as form } from 'redux-form'
+import auth from './Auth/reducer';
+import company from './Company';
 
 
 export default combineReducers({
-  routing: routerReducer,
-  form: formReducer,
-  auth: authReducer,
-  companySearch: searchCompanyReducer,
-  company: companyReducer,
+  routing,
+  form,
+  auth,
+  company
 });

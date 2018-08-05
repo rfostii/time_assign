@@ -19,7 +19,7 @@ render(
       <Route exact path="/" component={Home} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/signup" component={SignUp} />
-      <Route exact path="/search" component={SearchResults} />
+      <Route exact path="/search/:company_id" component={SearchResults} />
       <Route exact path="/company/:slug" component={CompanyPage} />
     </Router>
   </Provider>,

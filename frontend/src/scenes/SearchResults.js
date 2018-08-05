@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import { 
     Container, Grid, Dimmer, Loader, Item, Label,
     Button, Icon, Breadcrumb
-} from 'semantic-ui-react';
+} from 'semantic-ui-react/dist/commonjs';
 import Navigation from 'components/Navigation'; 
-import Search from 'features/SearchCompany';
+import Search from 'features/Company/CompanySearch';
 import Filter from 'features/Filter';
+import CompaniesList from 'features/Company/CompaniesList';
 import './SearchResults.css';
 
+
 class SearchResults extends Component {  
-  render() {
+  render() {    
     return (
         <Container className="tm-search-results">
             <Navigation />              
@@ -24,46 +26,8 @@ class SearchResults extends Component {
                     <Search />
                     <Filter />
                     </Grid.Column>
-                    <Grid.Column width={12}>                                                
-                        <Dimmer active inverted>
-                            <Loader inverted>Loading</Loader>
-                        </Dimmer>  
-                        <Item.Group divided>
-                            <Item>
-                                <Item.Image src='/assets/images/wireframe/image.png' />
-                                <Item.Content>
-                                    <Item.Header as='a'>12 Years a Slave</Item.Header>
-                                    <Item.Meta>
-                                        <span className='cinema'>Union Square 14</span>
-                                    </Item.Meta>
-                                    <Item.Description>text</Item.Description>
-                                    <Item.Extra>
-                                        <Button primary floated='right'>
-                                            Buy tickets
-                                            <Icon name='right chevron' />
-                                        </Button>
-                                        <Label>Limited</Label>
-                                    </Item.Extra>
-                                </Item.Content>
-                            </Item>
-                            <Item>
-                                <Item.Image src='/assets/images/wireframe/image.png' />
-                                <Item.Content>
-                                    <Item.Header as='a'>12 Years a Slave</Item.Header>
-                                    <Item.Meta>
-                                        <span className='cinema'>Union Square 14</span>
-                                    </Item.Meta>
-                                    <Item.Description>text</Item.Description>
-                                    <Item.Extra>
-                                        <Button primary floated='right'>
-                                            Buy tickets
-                                            <Icon name='right chevron' />
-                                        </Button>
-                                        <Label>Limited</Label>
-                                    </Item.Extra>
-                                </Item.Content>
-                            </Item>
-                        </Item.Group>
+                    <Grid.Column width={12}>                        
+                        <CompaniesList />
                     </Grid.Column>
                 </Grid.Row>
             </Grid>                        

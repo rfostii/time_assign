@@ -13,7 +13,7 @@ urlpatterns = [
     url(r'^clients/$', ClientView.as_view()),
     url(r'^clients/(?P<pk>[0-9]+)/$', ClientView.as_view()),
 
-    url(r'^companies/$', CompaniesView.as_view(), name="companies"),    
+    url(r'^companies/$', CompaniesView.as_view(), name="companies"),
     url(r'^companies/(?P<pk>[0-9]+)/$', CompanyView.as_view(), name="company_id"),
     url(r'^companies/(?P<slug>[-\w]+)/$', CompanyView.as_view(), name="company_slug"),
 
