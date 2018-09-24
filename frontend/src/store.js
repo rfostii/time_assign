@@ -3,6 +3,7 @@ import { createLogger } from 'redux-logger';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 import { browserHistory } from 'react-router';
 import thunk from 'redux-thunk';
+import axios from 'axios';
 import rootReducer from 'features';
 
 const LOCAL_STORAGE_KEY = 'time_assign_token';
@@ -60,6 +61,7 @@ syncHistoryWithStore(browserHistory, store);
 store.subscribe(() => {
   const { auth = {} } = store.getState();
   saveToken(auth.token);
+  axios.defaults.headers.common['Authorization'] = 'JWT ' + auth.token;
 });
 
 export default store;

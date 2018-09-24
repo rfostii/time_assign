@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from time_assign.models import Company
 from time_assign.serializers.company import CompanySerializer
 from django_filters.rest_framework import DjangoFilterBackend
@@ -11,6 +12,7 @@ from time_assign.filters.SearchFilterLimit import SearchFilterLimit
 
 
 class CompaniesView(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = Company.objects.all()
     serializer_class = CompanySerializer    
     filter_backends = (SearchFilterLimit, DjangoFilterBackend)

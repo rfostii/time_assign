@@ -26,7 +26,7 @@ SECRET_KEY = '&_x5@*9bp2rj(givrg2deycr^oxs4!n4rf=s%+0e^g5aka@cwy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-AUTH_USER_MODEL = 'time_assign.Client'
+AUTH_USER_MODEL = 'time_assign.User'
 
 # Application definition
 

@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.mail import send_mail
 from django.utils.text import slugify
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-from time_assign.managers.client import ClientManager
+from time_assign.managers.user import UserManager
 
 
 # Create your models here.
@@ -36,7 +36,7 @@ class Category(models.Model):
 
 # Create your models here.
 class Company(models.Model):
-    owner = models.ForeignKey('Client')
+    owner = models.ForeignKey('User')
     category = models.ForeignKey(Category)
     name = models.CharField(max_length=255)
     logo = models.ImageField(upload_to='images/logos')
@@ -63,7 +63,7 @@ class Company(models.Model):
 
 
 class Service(models.Model):
-    specialist = models.ForeignKey('Client')
+    specialist = models.ForeignKey('User')
     company = models.ForeignKey(Company)
     image = models.ImageField(upload_to='images/service')
     name = models.CharField(max_length=255)
@@ -88,7 +88,7 @@ class Service(models.Model):
         return self.name
 
 
-class Client(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), max_length=254, unique=True)
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
@@ -100,17 +100,17 @@ class Client(AbstractBaseUser, PermissionsMixin):
                     'active. Unselect this instead of deleting accounts.'))
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)    
 
-    objects = ClientManager()
+    objects = UserManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
     class Meta:
-        verbose_name = _('client')
-        verbose_name_plural = _('clients')
+        verbose_name = _('user')
+        verbose_name_plural = _('users')
 
     def get_absolute_url(self):
-        return "/clients/%s/" % urlquote(self.email)
+        return "/users/%s/" % urlquote(self.email)
 
     def get_full_name(self):
         full_name = '%s %s' % (self.first_name, self.last_name)
@@ -128,8 +128,8 @@ class Client(AbstractBaseUser, PermissionsMixin):
 
 class Assigment(models.Model):
     company = models.ForeignKey(Company)
-    client = models.ForeignKey(Client, related_name='assigment_client')
-    employee = models.ForeignKey(Client, related_name='assigment_employee')        
+    client = models.ForeignKey(User, related_name='assigment_client')
+    employee = models.ForeignKey(User, related_name='assigment_employee')        
     service = models.ForeignKey(Service)
     datetime = models.DateTimeField()
     duration = models.TimeField()
@@ -141,8 +141,8 @@ class Assigment(models.Model):
 
 
 class Feedback(models.Model):
-    client = models.ForeignKey(Client, related_name='feedback_client')
-    employee = models.ForeignKey(Client, related_name='feedback_employee')
+    client = models.ForeignKey(User, related_name='feedback_client')
+    employee = models.ForeignKey(User, related_name='feedback_employee')
     company = models.ForeignKey(Company)
     assessment = models.FloatField()
     comment = models.TextField()

@@ -1,11 +1,11 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import ugettext_lazy as _
 from time_assign.models import (
-        Assigment, Client, Company,
+        Assigment, User, Company,
         Service, Feedback, Category
     )
-from time_assign.forms.client import ClientCreationForm, ClientChangeForm
+from time_assign.forms.user import UserCreationForm, UserChangeForm
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -16,7 +16,7 @@ class AssigmentAdmin(admin.ModelAdmin):
     pass    
 
 
-class ClientAdmin(UserAdmin):
+class UserAdmin(BaseUserAdmin):
     # The forms to add and change user instances
 
     # The fields to be used in displaying the User model.
@@ -35,8 +35,8 @@ class ClientAdmin(UserAdmin):
             'fields': ('email', 'password1', 'password2')}
         ),
     )
-    form = ClientChangeForm
-    add_form = ClientCreationForm
+    form = UserChangeForm
+    add_form = UserCreationForm
     list_display = ('email', 'first_name', 'last_name', 'is_staff')
     search_fields = ('email', 'first_name', 'last_name')
     ordering = ('email',)
@@ -56,7 +56,7 @@ class FeedbackAdmin(admin.ModelAdmin):
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Assigment, AssigmentAdmin)
-admin.site.register(Client, ClientAdmin)
+admin.site.register(User, UserAdmin)
 admin.site.register(Company, CompanyAdmin)
 admin.site.register(Service, ServiceAdmin)
 admin.site.register(Feedback, FeedbackAdmin)

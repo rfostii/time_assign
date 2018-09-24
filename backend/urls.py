@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
     url(r'^admin/', admin.site.urls),        
     url(r'^auth/', include('djoser.urls')),
-    url(r'^auth/', include('djoser.urls.jwt')),    
+    url(r'^auth/', include('djoser.urls.jwt')),
 
     url(r'^api/', include('time_assign.urls', 'api')),
 ]

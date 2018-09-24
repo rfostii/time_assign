@@ -1,14 +1,14 @@
 from rest_framework import serializers
 from time_assign.models import Assigment
 from .company import CompanySerializer
-from .client import ClientSerializer
+from .user import UserSerializer
 from .service import ServiceSerializer
 
 
 class AssigmentSerializer(serializers.ModelSerializer):
     company = CompanySerializer()
-    client = ClientSerializer()
-    employee = ClientSerializer()
+    client = UserSerializer()
+    employee = UserSerializer()
     service = ServiceSerializer()
     
     class Meta:
