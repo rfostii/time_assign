@@ -1,11 +1,10 @@
-import { combineReducers } from 'redux'
-import search from './CompanySearch/reducer';
-import company from './CompanyInfo/reducer';
-import searchResults from './CompaniesList/reducer';
+import search from './CompanySearch/model';
+import company from './CompanyInfo/model';
+import companies from './CompaniesList/model';
 
 
-export default combineReducers({ 
-    search,
-    company,
-    searchResults,
-});
+export default {
+  search,
+  company,
+  companies,
+};

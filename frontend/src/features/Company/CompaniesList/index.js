@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router/lib';
-import { loadCompanies } from './actions';
 import CompaniesList from 'components/Company/CompaniesList';
 
 
@@ -20,10 +19,10 @@ class CompaniesListContainer extends Component {
     }
 }
 
-const mapStateToProps = ({ company }) => ({ companies: company.searchResults });
+const mapStateToProps = ({ searchResults }) => ({ companies: searchResults });
 
 const mapDispatchToProps = dispatch => ({
-    loadCompanies: slug => dispatch(loadCompanies(slug)),
+    loadCompanies: slug => dispatch.company.loadCompanies(slug),
 });
    
 export default compose(

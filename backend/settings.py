@@ -26,7 +26,7 @@ SECRET_KEY = '&_x5@*9bp2rj(givrg2deycr^oxs4!n4rf=s%+0e^g5aka@cwy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-AUTH_USER_MODEL = 'time_assign.User'
+AUTH_USER_MODEL = 'client.Client'
 
 # Application definition
 
@@ -45,7 +45,11 @@ INSTALLED_APPS = [
     'djoser',
     'django_filters',
     # apps
-    'time_assign',
+    'assigment',
+    'client',
+    'company',
+    'feedback',
+    'service',
 ]
 
 MIDDLEWARE = [

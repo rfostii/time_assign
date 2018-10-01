@@ -11,7 +11,11 @@ urlpatterns = [
     url(r'^auth/', include('djoser.urls')),
     url(r'^auth/', include('djoser.urls.jwt')),
 
-    url(r'^api/', include('time_assign.urls', 'api')),
+    url(r'^api/', include('assigment.urls', 'api.assigment')),
+    url(r'^api/', include('client.urls', 'api.client')),
+    url(r'^api/', include('company.urls', 'api.company')),
+    url(r'^api/', include('feedback.urls', 'api.feedback')),
+    url(r'^api/', include('service.urls', 'api.service')),
 ]
 
 if settings.DEBUG:

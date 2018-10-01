@@ -1,18 +1,14 @@
 import { connect } from 'react-redux';
-import { 
-    searchCompanyChange, searchCompany, 
-    searchCompanySelect, searchCompanyReset
-} from './actions';
 import Search from 'components/Company/CompanySearch';
 
 
-const mapStateToProps = state => state.company.search;
+const mapStateToProps = ({ search }) => search;
 
-const mapDispatchToProps = dispatch => ({  
-    onChange: value => dispatch(searchCompanyChange(value)),
-    onSelect: company => dispatch(searchCompanySelect(company)),
-    onSearch: query => dispatch(searchCompany(query)),
-    reset: () => dispatch(searchCompanyReset())
+const mapDispatchToProps = dispatch => ({
+    onChange: value => dispatch.search.searchCompanyChange(value),
+    onSelect: company => dispatch.search.searchCompanySelect(company),
+    onSearch: query => dispatch.search.searchCompany(query),
+    reset: () => dispatch.search.searchCompanyReset()
 });
    
 export default connect(

@@ -1,13 +1,15 @@
-import { combineReducers } from 'redux'
 import routing from './common/routingReducer';
 import { reducer as form } from 'redux-form'
-import auth from './Auth/reducer';
+import auth from './Auth/model';
 import company from './Company';
 
 
-export default combineReducers({
-  routing,
-  form,
+export const models = {
   auth,
-  company
-});
+  ...company,
+};
+
+export const reducers = {
+  routing,
+  form,  
+};

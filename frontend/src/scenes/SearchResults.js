@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { 
-    Container, Grid, Dimmer, Loader, Item, Label,
-    Button, Icon, Breadcrumb
+    Container, Grid, Breadcrumb
 } from 'semantic-ui-react/dist/commonjs';
 import Navigation from 'components/Navigation'; 
 import Search from 'features/Company/CompanySearch';
