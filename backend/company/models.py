@@ -1,3 +1,4 @@
+from unidecode import unidecode
 from django.db import models
 from django.utils import timezone
 from django.utils.http import urlquote
@@ -39,8 +40,8 @@ class Company(models.Model):
         return self.name
 
     def get_absolute_url(self):        
-        return reverse('company', args=[str(self.slug)])
+        return reverse('company_slug', args=[str(self.slug)])
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name, allow_unicode=True)
+        self.slug = slugify(unidecode(self.name))
         super(Company, self).save(*args, **kwargs)

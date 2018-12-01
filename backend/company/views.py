@@ -5,14 +5,14 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-from .models import Company
-from .serializers import CompanySerializer
+from .models import Company, Category
+from .serializers import CompanySerializer, CategorySerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from .filters.SearchFilterLimit import SearchFilterLimit
 
 
 class CompaniesView(generics.ListCreateAPIView):
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
     queryset = Company.objects.all()
     serializer_class = CompanySerializer    
     filter_backends = (SearchFilterLimit, DjangoFilterBackend)
@@ -52,3 +52,22 @@ class CompanyView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
+
+class CategoriesView(APIView):
+    def get(self, request, pk=None, format=None):
+        if pk:
+            assigment = Category.objects.get(pk=pk)
+            serializer = CategorySerializer(assigment, context={'request': request})            
+        else:
+            assigments = Category.objects.all()
+            serializer = CategorySerializer(assigments, many=True, context={'request': request})
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = CategorySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+

@@ -6,8 +6,9 @@ class CategoryAdmin(admin.ModelAdmin):
     pass   
 
 
-class CompanyAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('name',)}
+class CompanyAdmin(admin.ModelAdmin):    
+    list_display = ('name', 'city', 'owner')    
+    exclude = ('slug',)
 
 
 admin.site.register(Category, CategoryAdmin)

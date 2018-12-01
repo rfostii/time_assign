@@ -10,3 +10,4 @@ Pillow
 djoser==1.1.5
 python-social-auth==0.3.6
 social-auth-app-django==2.1.0
+Unidecode==0.04.9

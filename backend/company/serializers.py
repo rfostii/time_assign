@@ -5,7 +5,7 @@ from .models import Category, Company
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'logo',)
 
     def create(self, validated_data):
         return Category.objects.create(**validated_data)
@@ -16,25 +16,16 @@ class CategorySerializer(serializers.ModelSerializer):
         return instance
 
 
-class CompanySerializer(serializers.HyperlinkedModelSerializer):
+class CompanySerializer(serializers.ModelSerializer):
     category = CategorySerializer()
-
-    url = serializers.HyperlinkedIdentityField(
-        view_name='api:company_slug',
-        lookup_field='slug'
-    )
 
     class Meta:
         model = Company
         fields = (
             'id', 'name', 'category', 'logo', 'city', 
-            'street', 'house_number', 'phone_number', 'slug', 'url', 
+            'street', 'house_number', 'phone_number', 'slug',
             'description',
-        )
-        lookup_field = 'slug'
-        extra_kwargs = {
-            'url': {'lookup_field': 'slug'}
-        }
+        )        
 
     def create(self, validated_data):
         return Company.objects.create(**validated_data)
