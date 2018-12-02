@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { URL, GET_COMPANY } from 'config/Api';
+import { URL, GET_COMPANY } from './api';
 
 
 export function search(search) {

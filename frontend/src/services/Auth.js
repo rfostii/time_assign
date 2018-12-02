@@ -1,6 +1,6 @@
 import axios from 'axios';
 import get from 'lodash/get';
-import { URL, LOGIN, SIGNUP, REFRESH } from 'config/Api';
+import { URL, LOGIN, SIGNUP, REFRESH } from './api';
 
 export class InvalidCredentialsException {
     constructor(message) {

@@ -1,36 +1,25 @@
 import { createLogger } from 'redux-logger';
-import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
-import { browserHistory } from 'react-router';
 import thunk from 'redux-thunk';
 import { init } from "@rematch/core";
-import { models, reducers } from 'features';
+import immerPlugin from '@rematch/immer';
+import { models, reducers } from './features';
+import { redirect } from './middleware';
+import { history } from './plugins';
 
-
-const enhancers = [];
 const middleware = [
-  createLogger(),
-  routerMiddleware(browserHistory),
-  thunk,
+    createLogger(),
+    thunk,
+    redirect
 ];
 
-console.log(models);
-
-const store = init({  
-  models,
-  redux: {
-    reducers,
-    middlewares: [...middleware]
-  },
+export default init({
+    models,
+    plugins: [
+        history,
+        immerPlugin()
+    ],
+    redux: {
+        reducers,        
+        middlewares: [...middleware],
+    },
 });
-
-if (process.env.NODE_ENV === 'development') {
-  const devToolsExtension = window.devToolsExtension
-
-  if (typeof devToolsExtension === 'function') {
-    enhancers.push(devToolsExtension()(store))
-  }
-}
-
-syncHistoryWithStore(browserHistory, store);
-
-export default store;

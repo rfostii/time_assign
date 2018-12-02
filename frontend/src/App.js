@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import 'App.css';
+import './style.css';
 import Auth from 'features/Auth'; 
 import Navigation from 'components/Navigation/Navigation'; 
 import Categories from 'components/Categories'; 

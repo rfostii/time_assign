@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { URL } from 'config/Api';
+import { URL } from './api';
 
 let apiClient = axios;
 

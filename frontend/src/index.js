@@ -1,29 +1,31 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, browserHistory } from 'react-router';
+import { BrowserRouter, Route } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
 import 'index.css';
 import registerServiceWorker from 'registerServiceWorker';
 import store from 'store';
-import Home from 'scenes/Home';
-import Login from 'scenes/Login';
-import SignUp from 'scenes/SignUp';
-import SearchResults from 'scenes/SearchResults';
-import CompanyPage from 'scenes/Company';
+import HomePage from './views/home/Home';
+import LoginPage from './views/login/Login';
+import SignUpPage from './views/user-registration/UserRegistration';
+import SearchResultsPage from './views/search-result/SearchResult';
+import CompanyDetailsPage from './views/company-details/CompanyDetails';
 
 
 render(
-  <Provider store={store}>
-    <Router history={browserHistory}>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/signup" component={SignUp} />
-      <Route exact path="/search/:company_id" component={SearchResults} />
-      <Route exact path="/company/:slug" component={CompanyPage} />
-    </Router>
-  </Provider>,
-  document.getElementById('root')
+    <Provider store={store}>
+            <BrowserRouter>
+                <div>
+                    <Route exact path="/" component={HomePage} />
+                    <Route exact path="/login" component={LoginPage} />
+                    <Route exact path="/signup" component={SignUpPage} />
+                    <Route exact path="/search/:company_id" component={SearchResultsPage} />
+                    <Route exact path="/company/:slug" component={CompanyDetailsPage} />
+                </div>
+            </BrowserRouter>
+    </Provider>,
+    document.getElementById('root')
 );
 
 registerServiceWorker();
