@@ -1,15 +1,30 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import shortid from 'shortid';
 import PropTypes from 'prop-types';
-import { Form, Header } from 'semantic-ui-react';
+import { Form, Header } from '../../components';
 
+export default class FilterGroup extends PureComponent {
+    static propTypes = {
+        name: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        options: PropTypes.array.isRequired,
+        onFilterChange: PropTypes.func,
+        selected: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.array
+        ]),
+    };
 
-export default class FilterGroup extends Component {
+    static defaultProps = {
+        selected: [],
+        onFilterChange: null,
+    };
+
     constructor(props) {
-        super();                
+        super();
+        const { selected } = props;
         this.selectedCheckboxes = new Set();
-        this.preselect(props.selected);
-        this.isSelected = this.isSelected.bind(this);
-        this.onSelect = this.onSelect.bind(this);        
+        this.preselect(selected);
     }
 
     preselect(selected) {
@@ -22,7 +37,7 @@ export default class FilterGroup extends Component {
             this.props.selected.includes(value.toString());
     }
 
-    onSelect(e, control) {  
+    onSelect = (e, control) => {  
         const value = control.value.toString();      
         if (this.selectedCheckboxes.has(value)) {
             this.selectedCheckboxes.delete(value);
@@ -36,14 +51,21 @@ export default class FilterGroup extends Component {
     }
 
     render() {
+        const {
+            title,
+            options,
+            name,            
+            onFilterChange
+         } = this.props;
+
         return (
-            <Form.Group grouped onChange={this.onFilterChange}>
-                <Header as='h3'>{this.props.title}</Header>
-                {this.props.options.map((option, index) => (
-                    <Form.Checkbox 
-                        key={index}
-                        label={option.label}
-                        name={this.props.name} 
+            <Form.Group grouped onChange={onFilterChange}>
+                <Header as='h3'>{title}</Header>
+                {options.map(option => (
+                    <Form.Checkbox
+                        key={shortid.generate()}
+                        name={name}
+                        label={option.label}                        
                         value={option.value}
                         onChange={this.onSelect}  
                         defaultChecked={this.isSelected(option.value)}
@@ -53,18 +75,3 @@ export default class FilterGroup extends Component {
         );
     }
 }
-
-FilterGroup.propTypes = {
-    name: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    options: PropTypes.array.isRequired,
-    onFilterChange: PropTypes.func,
-    selected: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.array
-    ])
-};
-
-FilterGroup.defaultProps = {
-    selected: []
-};

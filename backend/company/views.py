@@ -21,8 +21,12 @@ class CompaniesView(generics.ListCreateAPIView):
 
     def get_queryset(self):        
         company_id = self.request.query_params.get('company_id')
+        location = self.request.query_params.get('location')
         
-        companies = Company.objects.all()        
+        if location:
+            return self.get_by_loaction(location)
+
+        companies = Company.objects.all()
         if company_id:
             company = get_object_or_404(Company, pk=company_id)
             companies = Company.objects.filter(
@@ -31,14 +35,21 @@ class CompaniesView(generics.ListCreateAPIView):
             )
         return companies
 
+    def get_by_loaction(self, location):
+        lat, lon = location.split(',')
+        try:
+            return Company.objects.get_nearby_spots(lat, lon)
+        except:
+            return Response('Location is not correct', status=status.HTTP_400_BAD_REQUEST)
+
 
 class CompanyView(APIView):
     def get(self, request, pk=None, slug=None, format=None):        
         if pk:
-            company = Company.objects.get(pk=pk)
+            company = get_object_or_404(Company, pk=pk)
             serializer = CompanySerializer(company, context={'request': request})
         elif slug:
-            company = Company.objects.get(slug=slug)
+            company = get_object_or_404(Company, slug=slug)
             serializer = CompanySerializer(company, context={'request': request})
         else:
             companies = Company.objects.all()
@@ -56,7 +67,7 @@ class CompanyView(APIView):
 class CategoriesView(APIView):
     def get(self, request, pk=None, format=None):
         if pk:
-            assigment = Category.objects.get(pk=pk)
+            assigment = get_object_or_404(Company, pk=pk)
             serializer = CategorySerializer(assigment, context={'request': request})            
         else:
             assigments = Category.objects.all()

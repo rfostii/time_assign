@@ -1,52 +1,67 @@
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
-import { Search as BaseSearch, Item } from 'semantic-ui-react';
+import { Search as BaseSearch, Item } from '../../components';
+import {
+    getSeachResults,
+    getLoadingStatus,
+    getValue
+} from './model';
 
 import './style.css';
 
 export class Search extends PureComponent {
     static propTypes = {
-        searchCompanyReset: PropTypes.func.isRequired,
-        searchCompanySelect: PropTypes.func.isRequired,
-        searchCompanyChange: PropTypes.func.isRequired,
-        searchCompany: PropTypes.func.isRequired,
         isLoading: PropTypes.bool.isRequired,
         results: PropTypes.array.isRequired,
-        value: PropTypes.string.isRequired,
+        reset: PropTypes.func.isRequired,                
+        search: PropTypes.func.isRequired,
+        onChange: PropTypes.func.isRequired,
+        onSelect: PropTypes.func.isRequired,
+        value: PropTypes.string,
     };
 
+    static defaultProps = {
+        value: ''
+    };
+
+    componentDidMount() {
+        const { value } = this.props;
+
+        this.setState(() => ({ value }));
+    }
+
     handleResultSelect = (e, { result }) => {
-        const { searchCompanySelect } = this.props;
+        const { onSelect } = this.props;
         
-        searchCompanySelect(result);
+        onSelect(result);
     };
 
     handleSearchChange = (e, { value }) => {
-        const { 
-            searchCompanyChange,
-            searchCompanyReset,
-            searchCompany
+        const {
+            reset,
+            search,
+            onChange
         } = this.props;
         
-        searchCompanyChange(value);
-        
+        onChange(value);
+
         if (!value.length) {
-            searchCompanyReset();
+            reset();
         }
         if (value.length > 2) {
-            searchCompany(value);
+            search(value);
         }
     };
 
     resultRenderer = result => {
         return (
-            <Item key={result.id}>
+            <Item key={result.company_id}>
                 <Item.Image size='tiny' src={result.logo} />
                 <Item.Content verticalAlign='middle'>
                     <Link
-                        to={'/search/' + result.id}
+                        to={'/search/' + result.company_id}
                         className="ta-company__link"
                     >
                         {result.name}
@@ -56,11 +71,11 @@ export class Search extends PureComponent {
         );
     };
 
-    render() {
+    render() {        
         const { 
-            isLoading, 
-            results, 
-            value 
+            isLoading,
+            results,
+            value,  
         } = this.props;
 
         return <BaseSearch action='Пошук'
@@ -81,10 +96,15 @@ export class Search extends PureComponent {
 }
 
 export default connect(
-    ({ companySearch }) => ({
-        ...companySearch
+    state => ({
+        results: getSeachResults(state),
+        isLoading: getLoadingStatus(state),
+        value: getValue(state),
     }),
     ({ companySearch }) => ({
-        ...companySearch
+        reset: companySearch.reset,
+        search: companySearch.search,
+        onChange: companySearch.onChange,
+        onSelect: companySearch.onSelect,
     })
 )(Search);

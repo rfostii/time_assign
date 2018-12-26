@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Container, Grid } from 'semantic-ui-react';
-import Navigation from '../../components/navigation/Navigation'; 
-import Categories from '../../features/company/category/Categories'; 
-import Search from '../../features/company/search/Search';
+import Navigation from '../../features/navigation/Navigation';
+import Search from '../../features/search/Search';
 
 import './style.css';
 
@@ -15,11 +14,7 @@ class Home extends PureComponent {
                 <Grid.Row>
                     <Grid.Column width={16}>
                         <Search />
-                    </Grid.Column>
-                    <Grid.Column width={16}>                        
-                        <Categories />  
-                    </Grid.Column>
-
+                    </Grid.Column>            
                 </Grid.Row>
             </Grid>                        
         </Container>

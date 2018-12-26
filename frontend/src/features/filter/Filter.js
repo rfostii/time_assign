@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { filter } from './actions';
 import React, { PureComponent } from 'react';
 import { Segment, Form } from 'semantic-ui-react';
 import FilterGroup from '../../components/filter-group/FilterGroup';
@@ -71,6 +70,6 @@ export default connect(
         
   }),
   dispatch => ({
-        onFilterChange: (name, value) => dispatch(filter({ name, value }))
+        
   })
 )(Filter);

@@ -6,7 +6,9 @@
     "@rematch/core": "^1.0.0-beta.5",
     "@rematch/immer": "next",
     "axios": "^0.18.0",
+    "classnames": "^2.2.6",
     "history": "^4.7.2",
+    "informed": "^1.10.12",
     "lodash": "^4.17.5",
     "moment": "^2.22.1",
     "object-assign": "4.1.1",
@@ -20,11 +22,11 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "redux": "^3.7.2",
-    "redux-form": "^7.3.0",
     "redux-thunk": "^2.2.0",
     "semantic-ui-css": "^2.3.0",
     "semantic-ui-react": "^0.78.3",
-    "shortid": "^2.2.14"
+    "shortid": "^2.2.14",
+    "state-as-querystring": "^1.1.6"
   },
   "scripts": {
     "start": "node scripts/start.js",

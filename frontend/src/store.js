@@ -2,24 +2,26 @@ import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
 import { init } from "@rematch/core";
 import immerPlugin from '@rematch/immer';
-import { models, reducers } from './features';
+import { models } from './features';
 import { redirect } from './middleware';
 import { history } from './plugins';
 
-const middleware = [
-    createLogger(),
+const middleware = [  
     thunk,
     redirect
 ];
 
+if (process.env !== 'production') {
+    middleware.push(createLogger());
+}
+
 export default init({
     models,
     plugins: [
-        history,
+        history(),
         immerPlugin()
     ],
-    redux: {
-        reducers,        
+    redux: {           
         middlewares: [...middleware],
     },
 });

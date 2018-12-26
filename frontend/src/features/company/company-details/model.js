@@ -1,4 +1,4 @@
-import { getCompanyBySlug } from 'services/Company';
+import { getCompanyBySlug } from '../api';
 
 
 export default {

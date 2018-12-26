@@ -1,4 +1,4 @@
-import { getCompanies } from 'services/Company';
+import { getCompanies } from '../api';
 
 
 export default {

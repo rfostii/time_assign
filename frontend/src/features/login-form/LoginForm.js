@@ -1,102 +1,110 @@
-import { compose } from 'redux';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { Field, reduxForm } from 'redux-form';
-import { 
+import {
     Container,
     Button,
-    Form,
     Grid,
     Header,
     Message,
-    Segment
-} from 'semantic-ui-react';
+    Segment,
+    Input,
+    Form,
+} from '../../components';
+import { isLoading, getError } from './model';
+import {
+    required,
+    email,
+} from '../../services/validators';
 
 import './style.css';
 
-const required = value => {
-  return value ? undefined : 'Поле є обов\'язковим';
-};
-
-const email = value => {
-  return /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 
-    undefined :
-    'Неправильний email';
-};
-
-const addErrorMessageToField = Component => props => (
-  <React.Fragment>
-    <Component {...props} />
-    {props.meta.touched &&
-      ((props.meta.error && <Message error content={props.meta.error} />) ||
-        (props.meta.warning && <Message warn content={props.meta.warning} />))}
-  </React.Fragment>
+const emailFieldValidation = value => (
+    required(value) || 
+    email(value)
 );
 
-const Control = addErrorMessageToField(Form.Input);
+class Auth extends PureComponent {
+    static propTypes = {
+        isLoading: PropTypes.bool.isRequired,        
+        submit: PropTypes.func.isRequired,
+        error: PropTypes.string,
+    };
 
-const Auth = props => {
-  const { handleSubmit, submitting } = props;
+    static defaultProps = {
+        error: null,
+    };
 
-  return (
-    <Container className="ta-authorization-form">
-      <Grid
-        textAlign='center'
-        style={{ height: '100%' }}
-        verticalAlign='middle'
-      >
-        <Grid.Column style={{ maxWidth: 450 }}>
-          <Header as='h2' color='teal' textAlign='center'>                
-            Авторизація
-          </Header>
-          <Form size='large' error onSubmit={handleSubmit}>
-            <Segment>              
-                <Field  
-                  component={Control}            
-                  fluid
-                  icon='user'
-                  name="email"
-                  iconPosition='left'
-                  placeholder='E-mail адреса'
-                  validate={[required, email]} />
-                <Field     
-                  component={Control}            
-                  fluid
-                  icon='lock'
-                  name="password"
-                  iconPosition='left'
-                  placeholder='Пароль'
-                  type='password'
-                  validate={[required]} />
-              <Button 
-                color='teal' 
-                fluid 
-                size='large'
-                disabled={submitting}>
-                Увійти
-              </Button>
-            </Segment>
-          </Form>
-          <Message>
-            Немаєте власного профільлю? <Link to="/signup">Створити</Link>
-          </Message>
-        </Grid.Column>
-      </Grid>
-    </Container>
-  );
-};
+    render () {
+        const {
+            isLoading,
+            error,
+            submit,
+        } = this.props;
+
+        return (
+            <Container className="ta-authorization-form">
+                <Grid
+                    textAlign="center"
+                    style={{ height: '100%' }}
+                    verticalAlign="middle"
+                >
+                    <Grid.Column style={{ maxWidth: 450 }}>
+                    <Header as="h2" color="teal" textAlign="center">
+                        Авторизація
+                    </Header>
+                    <Form                        
+                        size="large"
+                        error={error}
+                        onSubmit={submit}
+                    >
+                        <Segment>
+                            <Input
+                                fluid
+                                icon="user"
+                                iconPosition="left"                 
+                                field="email"
+                                placeholder="E-mail адреса"
+                                validate={emailFieldValidation}
+                                validateOnBlur
+                            />
+                            <Input            
+                                fluid
+                                icon="lock"
+                                iconPosition="left"                    
+                                field="password"
+                                placeholder="Пароль"
+                                type="password"
+                                validate={required}
+                                validateOnBlur
+                            />                            
+                            <Button 
+                                color="teal"
+                                fluid
+                                disabled={isLoading}
+                                size="large">
+                                Увійти
+                            </Button>
+                        </Segment>
+                    </Form>
+                    <Message>
+                        Немаєте власного профільлю? <Link to="/signup">Створити</Link>
+                    </Message>
+                    </Grid.Column>
+                </Grid>
+            </Container>
+        );
+    }
+}
    
-export default compose(
-    connect(
-        state => ({
-            auth: state.auth
-        }),
-        ({ auth }) => ({
-            onSubmit: auth.getToken
-        })
-    ),
-    reduxForm({  
-        form: 'auth'
+export default connect(
+    state => ({
+        isLoading: isLoading(state),
+        error: getError(state),
+    }),        
+    ({ auth, nav }) => ({
+        submit: auth.getToken,
+        nav
     })
-)(Auth)
+)(Auth);

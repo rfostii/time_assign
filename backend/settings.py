@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'djoser',
     'django_filters',
+    'django_google_maps',
     # apps
     'assigment',
     'client',
@@ -89,8 +90,12 @@ WSGI_APPLICATION = 'wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'time_assign',
+        'USER': 'root',
+        'PASSWORD': '843214ruslan',
+        'HOST': 'localhost',
+        'PORT': '3306',        
     }
 }
 
@@ -172,4 +177,6 @@ DJOSER = {
     'SEND_CONFIRMATION_EMAIL': True,
     'SERIALIZERS': {},
 }
+
+GOOGLE_MAPS_API_KEY = 'AIzaSyDiuQiIEDmRSvT32U6W5BlhLstyMMvN6XI'
 

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { 
     Container, Grid, Breadcrumb
 } from 'semantic-ui-react';
-import Navigation from '../../components/navigation/Navigation'; 
-import Search from '../../features/company/search/Search';
+import Navigation from '../../features/navigation/Navigation'; 
+import Search from '../../features/search/Search';
 import Filter from '../../features/filter/Filter';
 import CompaniesList from '../../features/company/search-results/SearchResults';
 
