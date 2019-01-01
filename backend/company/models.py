@@ -11,19 +11,20 @@ from django_google_maps import fields as map_fields
 class Category(models.Model):
     name = models.CharField(max_length=255)
     logo = models.ImageField(upload_to='images/logos', blank=True, null=True)
+    parent_category = models.ForeignKey('self', null=True, blank=True)
 
     class Meta:
-        verbose_name = _('category')
-        verbose_name_plural = _('categories')
+        verbose_name = _('Category')
+        verbose_name_plural = _('Categories')
 
     def __str__(self):
         return self.name
-        
 
 # Create your models here.
 class Company(models.Model):
     owner = models.ForeignKey('client.Client')
     category = models.ForeignKey('Category')
+    procedures = models.ManyToManyField('service.Service', verbose_name=_('procedures'), related_name='procedures')
     name = models.CharField(max_length=255)
     logo = models.ImageField(upload_to='images/logos')
     city = models.CharField(max_length=255)
@@ -37,8 +38,8 @@ class Company(models.Model):
     longitude = models.DecimalField(max_digits=30, decimal_places=20)
 
     class Meta:
-        verbose_name = _('company')
-        verbose_name_plural = _('companies')
+        verbose_name = _('Company')
+        verbose_name_plural = _('Companies')
 
     def __str__(self):
         return self.name

@@ -17,12 +17,12 @@ export default {
         },
     },
     effects: (dispatch) => ({
-        async register({ email, password }) { 
+        async register({ email, password1: password }) { 
             this.registerStart();
             try {
-                const token = await register(email, password);
-                dispatch.auth.setToken(token);
+                await register(email, password);                
                 this.setError(null);
+                dispatch.nav.navigate('/login');
             } catch (e) {
                 this.setError('Невдалося зареєструватися. Спробуйте ще раз.');
             } finally {

@@ -1,11 +1,8 @@
 from rest_framework import serializers
 from .models import Service
-from company.serializers import CompanySerializer
 
 
-class ServiceSerializer(serializers.ModelSerializer):
-    company = CompanySerializer()
-    
+class ServiceSerializer(serializers.ModelSerializer):    
     class Meta:
         model = Service
         fields = ('id', 'company', 'image', 'name', 'description', 'price', 'currency', 'period')

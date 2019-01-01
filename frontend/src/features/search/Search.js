@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { debounce } from 'lodash';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -8,6 +9,7 @@ import {
     getLoadingStatus,
     getValue
 } from './model';
+import { composeSearchLink } from './helpers';
 
 import './style.css';
 
@@ -20,10 +22,12 @@ export class Search extends PureComponent {
         onChange: PropTypes.func.isRequired,
         onSelect: PropTypes.func.isRequired,
         value: PropTypes.string,
+        attributes: PropTypes.object,
     };
 
     static defaultProps = {
-        value: ''
+        value: '',
+        attributes: {},
     };
 
     componentDidMount() {
@@ -61,7 +65,7 @@ export class Search extends PureComponent {
                 <Item.Image size='tiny' src={result.logo} />
                 <Item.Content verticalAlign='middle'>
                     <Link
-                        to={'/search/' + result.company_id}
+                        to={composeSearchLink(result)}
                         className="ta-company__link"
                     >
                         {result.name}
@@ -75,12 +79,11 @@ export class Search extends PureComponent {
         const { 
             isLoading,
             results,
-            value,  
+            value,
+            attributes,  
         } = this.props;
 
-        return <BaseSearch action='Пошук'
-            fluid
-            size='huge'
+        return <BaseSearch action='Пошук'            
             className='ta-search-field'
             minCharacters={3}
             noResultsMessage='Нічого не знайдено'
@@ -91,6 +94,7 @@ export class Search extends PureComponent {
             onSearchChange={this.handleSearchChange}
             results={results}
             value={value}
+            {...attributes}
         />;
     }
 }
@@ -103,7 +107,7 @@ export default connect(
     }),
     ({ companySearch }) => ({
         reset: companySearch.reset,
-        search: companySearch.search,
+        search: debounce(companySearch.search, 300),
         onChange: companySearch.onChange,
         onSelect: companySearch.onSelect,
     })

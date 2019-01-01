@@ -5,17 +5,22 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-from .models import Company, Category
-from .serializers import CompanySerializer, CategorySerializer
 from django_filters.rest_framework import DjangoFilterBackend
-from .filters.SearchFilterLimit import SearchFilterLimit
+from rest_framework.filters import SearchFilter
+from .models import Company, Category
+from .filters import CompanyFilterBackend
+from .serializers import (
+    CompanySerializer,
+    CategorySerializer,    
+)
 
 
 class CompaniesView(generics.ListCreateAPIView):
     # permission_classes = (IsAuthenticated,)
     queryset = Company.objects.all()
-    serializer_class = CompanySerializer    
-    filter_backends = (SearchFilterLimit, DjangoFilterBackend)
+    serializer_class = CompanySerializer
+    filter_backends = (SearchFilter, CompanyFilterBackend)
+    filter_fields = ('category',)
     search_fields = ('name', 'city', 'street', 'phone_number')
     lookup_field = 'slug'
 
@@ -65,13 +70,16 @@ class CompanyView(APIView):
         
 
 class CategoriesView(APIView):
-    def get(self, request, pk=None, format=None):
+    def get(self, request, pk=None, parent_cetegory_id=None, format=None):
         if pk:
-            assigment = get_object_or_404(Company, pk=pk)
-            serializer = CategorySerializer(assigment, context={'request': request})            
+            category = get_object_or_404(Category, pk=pk)
+            serializer = CategorySerializer(category, context={'request': request})
+        elif parent_cetegory_id:
+            categories = Category.objects.filter(parent_category=parent_cetegory_id)
+            serializer = CategorySerializer(categories, many=True, context={'request': request})
         else:
-            assigments = Category.objects.all()
-            serializer = CategorySerializer(assigments, many=True, context={'request': request})
+            categories = Category.objects.all()
+            serializer = CategorySerializer(categories, many=True, context={'request': request})
         return Response(serializer.data)
 
     def post(self, request, format=None):

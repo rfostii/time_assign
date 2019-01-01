@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Category, Company
+from service.serializers import ServiceSerializer
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -15,14 +16,14 @@ class CategorySerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
-
 class CompanySerializer(serializers.ModelSerializer):
     category = CategorySerializer()
+    procedures = ServiceSerializer(many=True)
 
     class Meta:
         model = Company
         fields = (
-            'id', 'name', 'category', 'logo', 'city', 
+            'id', 'name', 'category', 'procedures', 'logo', 'city', 
             'street', 'house_number', 'phone_number', 'slug',
             'description',
         )        

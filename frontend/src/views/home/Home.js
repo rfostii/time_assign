@@ -13,7 +13,7 @@ class Home extends PureComponent {
             <Grid celled>
                 <Grid.Row>
                     <Grid.Column width={16}>
-                        <Search />
+                        <Search attributes={{ fluid: true, size: 'huge' }} />
                     </Grid.Column>            
                 </Grid.Row>
             </Grid>                        

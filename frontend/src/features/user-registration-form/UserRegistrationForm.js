@@ -123,6 +123,6 @@ export default connect(
         error: getError(state),
     }),
     ({ registration }) => ({
-        submit: ({ email, password1: password }) => registration.signup(email, password)
+        submit: registration.register,
     })
 )(SignUpForm);

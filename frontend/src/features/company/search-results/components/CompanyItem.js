@@ -8,7 +8,7 @@ export default ({ company }) => (
         <Item.Image size='tiny' src={company.logo} />
         <Item.Content>
             <Item.Header>
-                <Link to={'/company/' + company.id}>
+                <Link to={'/company/' + company.slug}>
                     {company.name}
                 </Link>
             </Item.Header>

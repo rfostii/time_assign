@@ -1,10 +1,11 @@
 export const ROUTING = 'ROUTING';
 
-export const navigateTo = nextUrl => ({
+export const navigateTo = (nextUrl, params) => ({
     type: ROUTING,
     payload: {
         method: 'push',
-        nextUrl
+        nextUrl,
+        params
     }
 });
 

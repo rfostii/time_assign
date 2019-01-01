@@ -1,22 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import './style.css';
-import Auth from 'features/Auth'; 
-import Navigation from 'components/Navigation/Navigation'; 
-import Categories from 'components/Categories'; 
-import Filter from 'features/Filter'; 
 
-
-class App extends Component {
+export default class App extends PureComponent {
   render() {
-    return (
-      <div className="App">
-        <Navigation />
-        <Auth />      
-        <Filter /> 
-        <Categories /> 
-      </div>
-    );  
-  }
+        return (
+            <div className="ta"></div>
+        );  
+    }
 }
-
-export default App;

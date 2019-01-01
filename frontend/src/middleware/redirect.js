@@ -3,8 +3,11 @@ import history from '../createHistory';
 
 export default () => next => action => {
     if (action.type === ROUTING) {
-        const { method, nextUrl } = action.payload;
-        history[method](nextUrl);
+        const { method, nextUrl, params = {} } = action.payload;
+        history[method]({
+            pathname: nextUrl,
+            ...params
+        });
     }    
     next(action);
 }

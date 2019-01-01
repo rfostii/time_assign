@@ -1,17 +1,23 @@
-import { getCompanies } from '../api';
+import { loadCompanies } from '../api';
+import { getFiltersForUrl } from '../../filters/model';
 
+const initialState = {
+    companies: [],
+};
 
 export default {
-  state: {},
+  state: initialState,
   reducers: {
     showCompanies(state, companies) {
-      return companies;
+      state.companies = companies;
     },
   },
-  effects: (dispatch) => ({    
-    async loadCompanies(companyId) {
-        const companies = await getCompanies(companyId);
-        dispatch.companies.showCompanies(companies);
+  effects: (dispatch) => ({
+    async loadCompanies(payload, state) {
+        const companies = await loadCompanies(getFiltersForUrl(state));
+        this.showCompanies(companies);
     },
   })
 };
+
+export const getCompanies = state => state.searchResults.companies;

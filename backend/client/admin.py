@@ -26,7 +26,7 @@ class ClientAdmin(BaseUserAdmin):
     )
     form = ClientChangeForm
     add_form = ClientCreationForm
-    list_display = ('email', 'first_name', 'last_name', 'is_staff')
+    list_display = ('email', 'first_name', 'last_name', 'is_active', 'is_staff')
     search_fields = ('email', 'first_name', 'last_name')
     ordering = ('email',)
 

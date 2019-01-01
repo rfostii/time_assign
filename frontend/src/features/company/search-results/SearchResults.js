@@ -1,33 +1,42 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { withRouter } from 'react-router';
-import CompaniesList from './components/CompaniesList';
+import { Item } from '../../../components';
+import CompanyItem from './components/CompanyItem';
+import { getCompanies } from './model';
 
-export class SearchResult extends PureComponent {
+export class SearchResults extends PureComponent {
+    static propTypes = {
+        companies: PropTypes.array.isRequired,
+        loadCompanies: PropTypes.func.isRequired,
+    };
+
     componentDidMount() {
-        this.props.loadCompanies(this.props.params.company_id);
+        const { loadCompanies } = this.props;
+        loadCompanies();
     }
 
     render() {
         const { companies } = this.props;
 
         return (
-            <CompaniesList companies={companies} />
+            <Item.Group>
+                {companies.map(company => 
+                    <CompanyItem 
+                        key={company.id} 
+                        company={company} 
+                    />
+                )}
+            </Item.Group>
         );
     }
 }
-
-const mapStateToProps = ({ searchResults }) => ({ companies: searchResults });
-
-const mapDispatchToProps = dispatch => ({
-    loadCompanies: slug => dispatch.company.loadCompanies(slug),
-});
    
-export default compose(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    ),
-    withRouter
-)(SearchResult);
+export default connect(
+    state => ({
+        companies: getCompanies(state),
+    }),
+    dispatch => ({            
+        loadCompanies: dispatch.searchResults.loadCompanies,
+    }),
+)(SearchResults);
