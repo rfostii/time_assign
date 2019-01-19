@@ -12,7 +12,7 @@ import {
     getSeachResults,
     getLoadingStatus,
 } from './model';
-import { composeSearchLink } from './helpers';
+import { composeSearchLinkFromCompany } from '../helpers';
 
 import './style.css';
 
@@ -39,7 +39,7 @@ export class CompanySearch extends PureComponent {
             <Item key={company.companyId}>
                 <Item.Image src={company.logo} />
                 <Item.Header>
-                    <Link to={composeSearchLink(company)} className="ta-company__link">
+                    <Link to={composeSearchLinkFromCompany(company)} className="ta-company__link">
                         {company.name} - {company.city}
                     </Link>
                 </Item.Header>

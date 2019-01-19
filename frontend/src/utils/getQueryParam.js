@@ -1,6 +1,6 @@
-import querystring from 'query-string';
+import { queryToObject } from '../services/query';
 
 export default (param) => {
-    const query = querystring.parse(window.location.search.slice(1)) || {};
+    const query = queryToObject(window.location.search.slice(1)) || {};
     return param ? query[param] : query;
 };

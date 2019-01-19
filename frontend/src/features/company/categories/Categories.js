@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { Menu, Dropdown } from '../../../components';
+import { composeSearchLinkFromCategory } from '../helpers';
 import { getCategories } from './model';
 
 export class Categories extends PureComponent {
@@ -29,10 +30,10 @@ export class Categories extends PureComponent {
                 return (
                     <Dropdown key={id} text={name} pointing className='link item'>
                         <Dropdown.Menu>
-                            {children.map(({ id, name }) => (
+                            {children.map(category => (
                                 <Dropdown.Header key={id}>
-                                    <NavLink to={`/search_results?category=${id}`}>
-                                        {name}
+                                    <NavLink to={composeSearchLinkFromCategory(category)}>
+                                        {category.name}
                                     </NavLink>                                
                                 </Dropdown.Header>
                             ))}

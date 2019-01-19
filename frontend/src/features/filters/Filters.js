@@ -7,7 +7,6 @@ import {
     Range,
 } from '../../components';
 import { getFilters } from './model';
-import { FILTERS } from './constants';
 import CitySearch from '../search/components/CitySearch';
 
 class Filters extends PureComponent {
@@ -28,7 +27,7 @@ class Filters extends PureComponent {
         reset();
     }
 
-    onFilterChange = (name, value) => {
+    onMultiFilterChange = (name, value) => {
         const { onFilterChange } = this.props;     
         onFilterChange({ name, value });
     };
@@ -36,43 +35,52 @@ class Filters extends PureComponent {
     onPriceRangeChange = (value) => {
         const { onFilterChange } = this.props;     
         onFilterChange({ name: 'price', value });
-    };    
+    };
+
+    onCitySelect = ({ city }) => {
+        const { onFilterChange } = this.props;
+        onFilterChange({ name: 'city', value: city });
+    }
 
     render() {    
         const { filters: { price, category, procedure } } = this.props;
-        const categoryFilter = FILTERS.category;
-        const procedureFilter = FILTERS.procedure;
-        const priceFilter = FILTERS.price;
 
         return (
             <Form>
-                <CitySearch label="Населений пункт" />                
+                <CitySearch
+                    label="Населений пункт"
+                    onSelect={this.onCitySelect}
+                />
                 <Range
-                    title={priceFilter.title}
+                    title="Ціновий діапазон (грн)"
                     field="price"
-                    maxValue={priceFilter.maxValue}
-                    minValue={priceFilter.minValue}
-                    step={priceFilter.step}
+                    maxValue={500}
+                    minValue={0}
+                    step={1}
                     value={price}
                     allowSameValues
                     draggableTrack
                     onChangeComplete={this.onPriceRangeChange} 
                 />
                 <Filter
-                    title={categoryFilter.title}
-                    key={categoryFilter.id}
+                    title="Категорія"
                     field="category"
-                    options={categoryFilter.options}
+                    options={[
+                        { name: 'Стоматологія', value: '4' },
+                        { name: 'Перукарня', value: '2' },
+                        { name: 'Салон краси', value: '1' },
+                    ]}
                     selected={category}
-                    onFilterChange={this.onFilterChange}
+                    onFilterChange={this.onMultiFilterChange}
                 />
                 <Filter
-                    title={procedureFilter.title}
-                    key={procedureFilter.id}
+                    title="Послуги"
                     field="procedure"
-                    options={procedureFilter.options}
+                    options={[
+                        { name: 'Стрижка чоловіча', value: '1' },
+                    ]}
                     selected={procedure}
-                    onFilterChange={this.onFilterChange}
+                    onFilterChange={this.onMultiFilterChange}
                 />                                                              
             </Form>
         );

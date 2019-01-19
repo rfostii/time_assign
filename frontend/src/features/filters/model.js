@@ -1,5 +1,5 @@
 import { isEmpty } from 'lodash';
-import querystring from 'query-string';
+import { queryToObject, objectToQuery } from '../../services/query';
 import {
     formatFromValuesToUrl,
     formatFromUrlToValues,
@@ -9,11 +9,12 @@ const defaultFilters = {
     price: { min: 0, max: 100 },
     category: [],
     procedure: [],
+    city: null
 };
 
 const getStateFromUrl = () => {  
     const query = formatFromUrlToValues(
-        querystring.parse(window.location.search.slice(1))
+        queryToObject(window.location.search.slice(1))
     );
     
     return Object.keys(defaultFilters).reduce((acc, name) => {
@@ -50,12 +51,12 @@ export default {
             dispatch.searchResults.loadCompanies();
         },
         syncWithUrl(payload, state) {
-            const query = querystring.parse(window.location.search.slice(1));
+            const query = queryToObject(window.location.search.slice(1));
             const filters = Object.keys(state.filters).reduce((acc, name) => {
                 acc[name] = state.filters[name];
                 return acc;
             }, {});
-            const newQuery = querystring.stringify({
+            const newQuery = objectToQuery({
                 ...query,
                 ...formatFromValuesToUrl(filters),
             });
