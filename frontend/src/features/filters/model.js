@@ -5,13 +5,13 @@ import {
     formatFromUrlToValues,
 } from './formatters';
 
-const defaultFilters = {
+const defaultFilters = {    
     price: { min: 0, max: 100 },
     category: [],
-    procedures: [],
+    procedure: [],
 };
 
-const getInitialState = () => {    
+const getStateFromUrl = () => {  
     const query = formatFromUrlToValues(
         querystring.parse(window.location.search.slice(1))
     );
@@ -23,11 +23,16 @@ const getInitialState = () => {
 };
 
 export default {
-    state: getInitialState(),
-    reducers: {
+    state: getStateFromUrl(),
+    reducers: {        
+        populate(state, filters) {
+            Object.keys(filters).forEach((name) => {
+                state[name] = filters[name];
+            });
+        },
         update(state, { name, value }) {
             state[name] = value;
-        },
+        },        
         reset(state) {
             Object.keys(state).forEach((name) => {
                 state[name] = defaultFilters[name];
@@ -35,7 +40,11 @@ export default {
         },
     },
     effects: (dispatch) => ({
-        async filter(payload, state) {
+        init() {
+            this.populate(getStateFromUrl());
+            dispatch.searchResults.loadCompanies();
+        },
+        async filter(payload) {
             this.update(payload);
             this.syncWithUrl();
             dispatch.searchResults.loadCompanies();

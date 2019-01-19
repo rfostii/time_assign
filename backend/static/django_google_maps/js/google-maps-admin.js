@@ -30,6 +30,11 @@ function googleMapAdmin() {
     var lonId = 'id_longitude';
     var latId = 'id_latitude';
     var addressId = 'id_address';
+    var houseId = 'id_house_number';
+    var streetId = 'id_street';
+    var cityId = 'id_city';
+    var regionId = 'id_region';
+    var countryId = 'id_country';
 
     var self = {
         initialize: function() {
@@ -101,6 +106,7 @@ function googleMapAdmin() {
 
             if(place.geometry !== undefined) {
                 self.updateWithCoordinates(place.geometry.location);
+                self.updateAddressFields(place.address_components);
             }
             else {
                 geocoder.geocode({'address': place.name}, function(results, status) {
@@ -155,6 +161,36 @@ function googleMapAdmin() {
         updateGeolocation: function(latlng) {            
             $("#" + latId).val(latlng.lat()).trigger('change');
             $("#" + lonId).val(latlng.lng()).trigger('change');
+        },
+
+        updateAddressFields: function(results) {
+            var storableLocation = {};
+
+            for (var i = 0; i < results.length; i++) {
+                var component = results[i];
+
+                if(component.types.includes('street_number')) {
+                    storableLocation.house = component.long_name;
+                }
+                else if(component.types.includes('route')) {
+                    storableLocation.street = component.long_name;
+                }
+                else if(component.types.includes('sublocality') || component.types.includes('locality')) {
+                    storableLocation.city = component.long_name;
+                }
+                else if (component.types.includes('administrative_area_level_1')) {
+                    storableLocation.region = component.short_name;
+                }
+                else if (component.types.includes('country')) {
+                    storableLocation.country = component.long_name;                    
+                }
+            }
+
+            $("#" + houseId).val(storableLocation.house).trigger('change');
+            $("#" + streetId).val(storableLocation.street).trigger('change');
+            $("#" + cityId).val(storableLocation.city).trigger('change');
+            $("#" + regionId).val(storableLocation.region).trigger('change');
+            $("#" + countryId).val(storableLocation.country).trigger('change');
         }
     };
 

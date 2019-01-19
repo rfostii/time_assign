@@ -5,5 +5,4 @@ from .models import Feedback
 class FeedbackAdmin(admin.ModelAdmin):
     pass
 
-
 admin.site.register(Feedback, FeedbackAdmin)

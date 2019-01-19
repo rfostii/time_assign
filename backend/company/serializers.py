@@ -6,7 +6,7 @@ from service.serializers import ServiceSerializer
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('id', 'name', 'logo',)
+        fields = ('id', 'name', 'logo', 'parent_category')
 
     def create(self, validated_data):
         return Category.objects.create(**validated_data)
@@ -25,7 +25,7 @@ class CompanySerializer(serializers.ModelSerializer):
         fields = (
             'id', 'name', 'category', 'procedures', 'logo', 'city', 
             'street', 'house_number', 'phone_number', 'slug',
-            'description',
+            'description', 'address', 'is_active'
         )        
 
     def create(self, validated_data):
@@ -35,3 +35,8 @@ class CompanySerializer(serializers.ModelSerializer):
         instance.title = validated_data.get('title', instance.title)        
         instance.save()
         return instance
+
+class CompanyCitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Company
+        fields = ('city',)

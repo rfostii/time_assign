@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
@@ -11,54 +12,30 @@ from .models import Company, Category
 from .filters import CompanyFilterBackend
 from .serializers import (
     CompanySerializer,
-    CategorySerializer,    
+    CategorySerializer,  
+    CompanyCitySerializer,    
 )
 
 
-class CompaniesView(generics.ListCreateAPIView):
-    # permission_classes = (IsAuthenticated,)
+class CompaniesView(generics.ListCreateAPIView):    
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
     filter_backends = (SearchFilter, CompanyFilterBackend)
-    filter_fields = ('category',)
+    filter_fields = ('category', 'city')
     search_fields = ('name', 'city', 'street', 'phone_number')
     lookup_field = 'slug'
 
-    def get_queryset(self):        
-        company_id = self.request.query_params.get('company_id')
-        location = self.request.query_params.get('location')
-        
-        if location:
-            return self.get_by_loaction(location)
-
-        companies = Company.objects.all()
-        if company_id:
-            company = get_object_or_404(Company, pk=company_id)
-            companies = Company.objects.filter(
-                category=company.category,
-                city=company.city
-            )
-        return companies
-
-    def get_by_loaction(self, location):
-        lat, lon = location.split(',')
-        try:
-            return Company.objects.get_nearby_spots(lat, lon)
-        except:
-            return Response('Location is not correct', status=status.HTTP_400_BAD_REQUEST)
-
-
 class CompanyView(APIView):
     def get(self, request, pk=None, slug=None, format=None):        
+        query = {}
+
         if pk:
-            company = get_object_or_404(Company, pk=pk)
-            serializer = CompanySerializer(company, context={'request': request})
+            query = { 'pk': pk }
         elif slug:
-            company = get_object_or_404(Company, slug=slug)
-            serializer = CompanySerializer(company, context={'request': request})
-        else:
-            companies = Company.objects.all()
-            serializer = CompanySerializer(companies, many=True, context={'request': request})
+            query = { 'slug': slug }        
+            
+        company = get_object_or_404(Company, **query)
+        serializer = CompanySerializer(company, context={'request': request})        
         return Response(serializer.data)
 
     def post(self, request, format=None):
@@ -68,6 +45,11 @@ class CompanyView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
+class CompaniesCitiesView(generics.ListCreateAPIView):
+    queryset = Company.objects.values('city').distinct()
+    serializer_class = CompanyCitySerializer
+    filter_backends = (SearchFilter,)
+    search_fields = ('city',)
 
 class CategoriesView(APIView):
     def get(self, request, pk=None, parent_cetegory_id=None, format=None):
@@ -78,9 +60,16 @@ class CategoriesView(APIView):
             categories = Category.objects.filter(parent_category=parent_cetegory_id)
             serializer = CategorySerializer(categories, many=True, context={'request': request})
         else:
-            categories = Category.objects.all()
-            serializer = CategorySerializer(categories, many=True, context={'request': request})
-        return Response(serializer.data)
+            parent_categories = Category.objects.filter(parent_category__isnull=True)            
+            category_hierarchy = []
+            for parent in parent_categories:                
+                categories = Category.objects.filter(parent_category=parent)
+                category_hierarchy.append({
+                    'category': CategorySerializer(parent, context={'request': request}).data,
+                    'children': CategorySerializer(categories, many=True, context={'request': request}).data
+                })
+
+        return Response(category_hierarchy)
 
     def post(self, request, format=None):
         serializer = CategorySerializer(data=request.data)

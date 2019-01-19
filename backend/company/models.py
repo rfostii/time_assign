@@ -6,43 +6,60 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import slugify
 from django_google_maps import fields as map_fields
+from .managers import CompanyManager
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=255)
-    logo = models.ImageField(upload_to='images/logos', blank=True, null=True)
-    parent_category = models.ForeignKey('self', null=True, blank=True)
+    name = models.CharField(max_length=255, verbose_name=_('Послуга'))
+    logo = models.ImageField(upload_to='images/logos', verbose_name=_('Логотип'), blank=True, null=True)
+    parent_category = models.ForeignKey('self', verbose_name=_('Батьківська категорія'), null=True, blank=True)
 
     class Meta:
-        verbose_name = _('Category')
-        verbose_name_plural = _('Categories')
+        verbose_name = _('Категорія')
+        verbose_name_plural = _('Категорії')
 
     def __str__(self):
-        return self.name
+        return str(self.id) + ' - ' + self.name
+
+class Picture(models.Model):
+    picture = models.ImageField(upload_to='images/pictures', verbose_name=_('Зображення'))
+
+    class Meta:
+        verbose_name = _('Зображення')
+        verbose_name_plural = _('Зображення')
+
+    def __str__(self):        
+        return str(self.picture)
 
 # Create your models here.
-class Company(models.Model):
-    owner = models.ForeignKey('client.Client')
-    category = models.ForeignKey('Category')
-    procedures = models.ManyToManyField('service.Service', verbose_name=_('procedures'), related_name='procedures')
-    name = models.CharField(max_length=255)
-    logo = models.ImageField(upload_to='images/logos')
-    city = models.CharField(max_length=255)
-    street = models.CharField(max_length=255)
-    house_number = models.IntegerField()
-    phone_number = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255, unique = True, default='')
-    description = models.TextField(default='', blank=True)
-    address = map_fields.AddressField(max_length=200)
-    latitude = models.DecimalField(max_digits=30, decimal_places=20)
-    longitude = models.DecimalField(max_digits=30, decimal_places=20)
+class Company(models.Model):    
+    name = models.CharField(max_length=255, verbose_name=_('Назва'))
+    owner = models.ForeignKey('client.Client', verbose_name=_('Власник'), related_name='company_owner')
+    category = models.ForeignKey('Category', verbose_name=_('Категорія'))
+    logo = models.ImageField(upload_to='images/logos', verbose_name=_('Логотип'))    
+    country = models.CharField(max_length=255, verbose_name=_('Країна'))
+    region = models.CharField(max_length=255, verbose_name=_('Регіон'))
+    city = models.CharField(max_length=255, verbose_name=_('Місто'))
+    street = models.CharField(max_length=255, verbose_name=_('Вулиця'))
+    house_number = models.IntegerField(verbose_name=_('Номер будинку'))
+    phone_number = models.CharField(max_length=255, verbose_name=_('Телефон'))
+    slug = models.SlugField(max_length=255, unique = True, default='', verbose_name=_('Slug'))
+    description = models.TextField(default='', blank=True, verbose_name=_('Опис'))
+    address = map_fields.AddressField(max_length=200, verbose_name=_('Адреса'))
+    latitude = models.DecimalField(max_digits=30, decimal_places=20, verbose_name=_('Широта'))
+    longitude = models.DecimalField(max_digits=30, decimal_places=20, verbose_name=_('Довгота'))
+    is_active = models.BooleanField(default=False, verbose_name=_('Активний'))
+    procedures = models.ManyToManyField('service.Service', verbose_name=_('Послуги'), related_name='procedures', blank=True)
+    pictures = models.ManyToManyField('Picture', verbose_name=_('Зображення'))
+
+    objects = CompanyManager()
 
     class Meta:
-        verbose_name = _('Company')
-        verbose_name_plural = _('Companies')
+        verbose_name = _('Заклад')
+        verbose_name_plural = _('Заклади')
 
     def __str__(self):
-        return self.name
+        return str(self.id) + ' - ' + self.name
 
     def get_absolute_url(self):        
         return reverse('company_slug', args=[str(self.slug)])
@@ -50,25 +67,4 @@ class Company(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(unidecode(self.name))
         super(Company, self).save(*args, **kwargs)
-
-    def get_nearby_spots(self, lat, lng, radius=5000, limit=50):
-        """
-        use raw MySQL and Haversine Formula to search 
-        companies nearby location
-        http://en.wikipedia.org/wiki/Haversine_formula
-        """
-        radius = float(radius) / 1000.0
-
-        query = """SELECT id, (6367*acos(cos(radians(%2f))
-                *cos(radians(latitude))*cos(radians(longitude)-radians(%2f))
-                +sin(radians(%2f))*sin(radians(latitude))))
-                AS distance FROM company_company HAVING
-                distance < %2f ORDER BY distance LIMIT 0, %d""" % (
-            float(lat),
-            float(lng),
-            float(lat),
-            radius,
-            limit
-        )
-
-        return Company.objects.raw(query)
+    

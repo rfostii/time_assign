@@ -1,23 +1,40 @@
 import { loadCompanies } from '../api';
 import { getFiltersForUrl } from '../../filters/model';
+import getQueryParam from '../../../utils/getQueryParam';
 
 const initialState = {
+    isLoading: false,
     companies: [],
 };
 
 export default {
-  state: initialState,
-  reducers: {
-    showCompanies(state, companies) {
-      state.companies = companies;
+    state: initialState,
+    reducers: {
+        startLoading(state) {
+            state.isLoading = true;
+        },
+        showCompanies(state, companies) {
+            state.isLoading = false;
+            state.companies = companies;
+        },
+        reset(state) {
+            Object.keys(state).forEach((name) => {
+                state[name] = initialState[name];
+            });
+        }
     },
-  },
-  effects: (dispatch) => ({
-    async loadCompanies(payload, state) {
-        const companies = await loadCompanies(getFiltersForUrl(state));
-        this.showCompanies(companies);
-    },
-  })
+    effects: () => ({
+        async loadCompanies(payload, state) {
+            this.startLoading();         
+            const company = getQueryParam('company');
+            const companies = await loadCompanies({
+                company,
+                ...getFiltersForUrl(state),
+            });
+            this.showCompanies(companies);
+        },
+    })
 };
 
+export const isLoading = state => state.searchResults.isLoading;
 export const getCompanies = state => state.searchResults.companies;

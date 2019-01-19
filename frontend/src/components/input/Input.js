@@ -1,43 +1,49 @@
 import React from 'react';
+import shortid from 'shortid';
 import { asField } from 'informed';
-import { Input as BaseInput, Form } from 'semantic-ui-react';
-import { Message } from '../';
+import { Input as BaseInput } from 'semantic-ui-react';
 
 const Input = ({ fieldState, fieldApi, ...props }) => {
-    const { value } = fieldState;
+    const { value, error } = fieldState;
     const { setValue, setTouched } = fieldApi;
     const { 
-        onChange, onBlur, initialValue,
-        forwardedRef, field, label, component, ...rest 
+        onChange, onBlur, value: initialValue,
+        forwardedRef, field, label, 
+        showError = true,
+        ...rest
     } = props;
-    const Component = component || BaseInput;
+    const id = shortid.generate();
+    
     return (
-        <Form.Field label={label}>
-            <Component
+        <div className="field">
+            {label && <label forHtml={id}>{label}</label>}
+            <BaseInput
+                id={id}
                 {...rest}
                 ref={forwardedRef}
                 field={field}
                 name={field}
-                value={!value && value !== 0 ? '' : value}
-                onChange={e => {
-                    setValue(e.target.value);
+                value={value || initialValue}
+                onChange={(e, control) => { 
+                    const { value } = control;                
+                    setValue(value);
                     if (onChange) {
-                        onChange(e);
+                        onChange(e, control);
                     }
                 }}
-                onBlur={e => {
+                onBlur={(e, conrol) => {
                     setTouched();
                     if (onBlur) {
-                        onBlur(e);
+                        onBlur(e, conrol);
                     }
                 }}
-                error={!!fieldState.error}            
+                error={!!error}
             />
-            {fieldState.error 
-                ? <Message error content={fieldState.error} />
+            {error && showError
+                ? <div className="ta-validation-error">{error}</div>
                 : null
             }
-        </Form.Field>
+        </div>
     );
 };
 

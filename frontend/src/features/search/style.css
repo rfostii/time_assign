@@ -1,7 +1,7 @@
-.ta-search-field .input {
-    display: flex;
+.ta-search {
+    height: 250px;
 }
 
-.ta-company__link {
-    vertical-align: sub;
+.ta-search__tab .tab {
+    border: none !important;
 }

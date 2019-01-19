@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import history from './createHistory';
 import { Router } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
-import 'index.css';
+import './index.css';
 import registerServiceWorker from 'registerServiceWorker';
 import store from 'store';
 import Routes from './routes';

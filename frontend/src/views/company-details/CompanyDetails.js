@@ -1,34 +1,26 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
-    Container, Grid, Breadcrumb, Divider
-} from 'semantic-ui-react';
-import Navigation from '../../components/navigation/Navigation';
-import CompanyInfo from '../../features/company/company-details/CompanyDetails';
-import TimeAssignCalendar from '../../features/calendar/Calendar';
+    Container, 
+    Grid,
+    Breadcrumb,
+} from '../../components';
+import Navigation from '../../features/navigation/Navigation';
+import CompanyDetails from '../../features/company/company-details/CompanyDetails';
+import AssigmentCalendar from '../../features/assigment-calendar/AssigmentCalendar';
 
 import './style.css';
 
-export default class CompanyPage extends Component {
+export default class extends PureComponent {
     render() {
         return (
             <Container className="ta-company-page">
                 <Navigation />
-                <Breadcrumb className="ta-breadcrumb">
-                    <Breadcrumb.Section href="/">Home</Breadcrumb.Section>
-                    <Breadcrumb.Divider icon='right angle' />
-                    <Breadcrumb.Section>Search Results</Breadcrumb.Section>
-                    <Breadcrumb.Divider icon='right angle' />
-                    <Breadcrumb.Section active>Company</Breadcrumb.Section>
-                </Breadcrumb>
+                <Breadcrumb step={3} />
                 <Grid celled>
                     <Grid.Row>
-                        <Grid.Column width={4}>
-
-                        </Grid.Column>
-                        <Grid.Column width={12}>
-                            <CompanyInfo />
-                            <Divider />
-                            <TimeAssignCalendar />
+                        <Grid.Column width={16}>
+                            <CompanyDetails />
+                            <AssigmentCalendar />
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

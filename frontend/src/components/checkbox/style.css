@@ -1,0 +1,9 @@
+.ta-checkbox {
+    display: block;
+}
+
+.ta-checkbox__input {
+    display: inline-block !important;
+    margin-right: .5rem !important;
+    vertical-align: middle;
+}

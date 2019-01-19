@@ -13,9 +13,8 @@ class ClientAdmin(BaseUserAdmin):
     # that reference the removed 'username' field
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        (_('Personal info'), {'fields': ('first_name', 'last_name')}),
-        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
-                                       'groups', 'user_permissions')}),
+        (_('Personal info'), {'fields': ('first_name', 'last_name', 'company')}),
+        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'is_employee', 'groups', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
     add_fieldsets = (
@@ -26,8 +25,8 @@ class ClientAdmin(BaseUserAdmin):
     )
     form = ClientChangeForm
     add_form = ClientCreationForm
-    list_display = ('email', 'first_name', 'last_name', 'is_active', 'is_staff')
-    search_fields = ('email', 'first_name', 'last_name')
+    list_display = ('email', 'first_name', 'last_name', 'is_active', 'is_staff', 'is_employee', 'company')
+    search_fields = ('email', 'first_name', 'last_name', 'company')
     ordering = ('email',)
 
 

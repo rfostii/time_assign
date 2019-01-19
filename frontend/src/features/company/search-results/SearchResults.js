@@ -1,26 +1,30 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Item } from '../../../components';
+import { compose } from 'redux';
+import { withRouter } from 'react-router';
+import { Item, Loader } from '../../../components';
 import CompanyItem from './components/CompanyItem';
-import { getCompanies } from './model';
+import { getCompanies, isLoading } from './model';
 
 export class SearchResults extends PureComponent {
     static propTypes = {
+        isLoading: PropTypes.bool.isRequired,
         companies: PropTypes.array.isRequired,
-        loadCompanies: PropTypes.func.isRequired,
+        reset: PropTypes.func.isRequired,
     };
 
-    componentDidMount() {
-        const { loadCompanies } = this.props;
-        loadCompanies();
+    componentWillUnmount() {
+        const { reset } = this.props;
+        reset();
     }
 
     render() {
-        const { companies } = this.props;
+        const { companies, isLoading } = this.props;
 
         return (
             <Item.Group>
+                {isLoading && <Loader />}
                 {companies.map(company => 
                     <CompanyItem 
                         key={company.id} 
@@ -32,11 +36,15 @@ export class SearchResults extends PureComponent {
     }
 }
    
-export default connect(
-    state => ({
-        companies: getCompanies(state),
-    }),
-    dispatch => ({            
-        loadCompanies: dispatch.searchResults.loadCompanies,
-    }),
+export default compose(
+    connect(
+        state => ({
+            isLoading: isLoading(state),
+            companies: getCompanies(state),
+        }),
+        dispatch => ({
+            reset: dispatch.searchResults.reset,
+        }),
+    ),
+    withRouter
 )(SearchResults);

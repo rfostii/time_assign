@@ -2,32 +2,37 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
-import Company from '../search-results/components/CompanyItem';
+import PropTypes from 'prop-types';
+import { getCompany } from './model';
 
 export class CompanyDetails extends PureComponent {
-    componentDidMount() {
-        this.props.loadCompanyBySlug(this.props.params.slug);
+    static propTypes = {
+        company: PropTypes.object.isRequired,
+        loadCompany: PropTypes.func.isRequired,        
+    };
+
+    componentDidMount() {        
+        const { loadCompany, match: { params: { slug } } } = this.props;
+        loadCompany(slug);
     }
     
     render() {
         const { company } = this.props;
 
         return (
-            <Company company={company} />
+            <div>Details {company.name}</div>
         );
     }
 }
-
-const mapStateToProps = ({ company }) => ({ company });
-
-const mapDispatchToProps = dispatch => ({
-    loadCompanyBySlug: slug => dispatch.company.loadCompanyBySlug(slug),
-});
    
 export default compose(
     connect(
-        mapStateToProps,
-        mapDispatchToProps
+        state => ({
+            company: getCompany(state),
+        }),
+        dispatch => ({
+            loadCompany: dispatch.companyDetails.loadCompany,
+        })
     ),
     withRouter
 )(CompanyDetails);

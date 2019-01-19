@@ -1,21 +1,27 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { 
-    Segment, 
+import {
     Form,
     Filter,
     Range,
 } from '../../components';
 import { getFilters } from './model';
 import { FILTERS } from './constants';
+import CitySearch from '../search/components/CitySearch';
 
 class Filters extends PureComponent {
     static propTypes = {
-        filters: PropTypes.object.isRequired,
+        filters: PropTypes.object.isRequired,     
+        onInit: PropTypes.func.isRequired,
         onFilterChange: PropTypes.func.isRequired,
         reset: PropTypes.func.isRequired,
     };
+
+    componentDidMount() {
+        const { onInit } = this.props;
+        onInit();
+    }
 
     componentWillUnmount() {
         const { reset } = this.props;
@@ -39,37 +45,36 @@ class Filters extends PureComponent {
         const priceFilter = FILTERS.price;
 
         return (
-            <Segment style={{ maxWidth: 400, textAlign: 'left' }}>
-                <Form>         
-                    <Range
-                        title={priceFilter.title}
-                        field="price"
-                        maxValue={priceFilter.maxValue}
-                        minValue={priceFilter.minValue}
-                        step={priceFilter.step}
-                        value={price}
-                        allowSameValues
-                        draggableTrack
-                        onChangeComplete={this.onPriceRangeChange} 
-                    />
-                    <Filter
-                        title={categoryFilter.title}
-                        key={categoryFilter.id}
-                        field="category"
-                        options={categoryFilter.options}
-                        selected={category}
-                        onFilterChange={this.onFilterChange}
-                    />
-                    <Filter
-                        title={procedureFilter.title}
-                        key={procedureFilter.id}
-                        field="procedure"
-                        options={procedureFilter.options}
-                        selected={procedure}
-                        onFilterChange={this.onFilterChange}
-                    />                                                              
-                </Form>
-            </Segment>
+            <Form>
+                <CitySearch label="Населений пункт" />                
+                <Range
+                    title={priceFilter.title}
+                    field="price"
+                    maxValue={priceFilter.maxValue}
+                    minValue={priceFilter.minValue}
+                    step={priceFilter.step}
+                    value={price}
+                    allowSameValues
+                    draggableTrack
+                    onChangeComplete={this.onPriceRangeChange} 
+                />
+                <Filter
+                    title={categoryFilter.title}
+                    key={categoryFilter.id}
+                    field="category"
+                    options={categoryFilter.options}
+                    selected={category}
+                    onFilterChange={this.onFilterChange}
+                />
+                <Filter
+                    title={procedureFilter.title}
+                    key={procedureFilter.id}
+                    field="procedure"
+                    options={procedureFilter.options}
+                    selected={procedure}
+                    onFilterChange={this.onFilterChange}
+                />                                                              
+            </Form>
         );
     }
 }
@@ -78,7 +83,8 @@ export default connect(
     state => ({
         filters: getFilters(state),
     }),
-    dispatch => ({        
+    dispatch => ({
+        onInit: dispatch.filters.init,
         onFilterChange: dispatch.filters.filter,
         reset: dispatch.filters.reset,
     })

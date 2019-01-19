@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import { Container } from '../../components';
 import SignUpForm from '../../features/user-registration-form/UserRegistrationForm';
-import { Container } from 'semantic-ui-react';
 
-
-class SignUp extends Component {
+export default class extends PureComponent {
   render() {
     return (
       <Container className="ta-signup-page">        
@@ -12,5 +11,3 @@ class SignUp extends Component {
     );  
   }
 }
-
-export default SignUp;

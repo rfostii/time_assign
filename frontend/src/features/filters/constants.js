@@ -19,8 +19,9 @@ export const FILTERS = {
         type: FILTER_TYPES.MULTI,
         title: 'Категорія',        
         options: [
-            { name: 'Медицина', value: '1' },
-            { name: 'Краса', value: '2' },
+            { name: 'Стоматологія', value: '4' },
+            { name: 'Перукарня', value: '2' },
+            { name: 'Салон краси', value: '1' },
         ]
     },
     procedure: {

@@ -1,16 +1,14 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import { Container } from '../../components';
 import LoginForm from '../../features/login-form/LoginForm';
-import { Container } from 'semantic-ui-react';
 
 
-class Login extends Component {
+export default class extends PureComponent {
   render() {
     return (
-      <Container className="ta-login-page">        
-        <LoginForm />    
+      <Container className="ta-login-page">
+        <LoginForm />
       </Container>
     );  
   }
 }
-
-export default Login;

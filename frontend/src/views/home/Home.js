@@ -1,25 +1,30 @@
 import React, { PureComponent } from 'react';
-import { Container, Grid } from 'semantic-ui-react';
+import { 
+    Container, 
+    Grid
+} from '../../components';
 import Navigation from '../../features/navigation/Navigation';
+import Categories from '../../features/company/categories/Categories';
 import Search from '../../features/search/Search';
 
 import './style.css';
 
-class Home extends PureComponent {  
+export default class extends PureComponent {  
   render() {
     return (
         <Container className="ta-home-page">
-            <Navigation />  
-            <Grid celled>
-                <Grid.Row>
-                    <Grid.Column width={16}>
-                        <Search attributes={{ fluid: true, size: 'huge' }} />
-                    </Grid.Column>            
-                </Grid.Row>
-            </Grid>                        
+            <Navigation />
+            <Categories />
+            <Container className="ta-home-page__header">
+                <Grid>
+                    <Grid.Row>
+                        <Grid.Column computer={8} tablet={12} mobile={16}>
+                            <Search />
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+            </Container>            
         </Container>
     );  
   }
 }
-
-export default Home;

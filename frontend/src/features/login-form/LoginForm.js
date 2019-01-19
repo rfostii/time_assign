@@ -51,7 +51,7 @@ class Auth extends PureComponent {
                     verticalAlign="middle"
                 >
                     <Grid.Column style={{ maxWidth: 450 }}>
-                    <Header as="h2" color="teal" textAlign="center">
+                    <Header as="h2" color="blue" textAlign="center">
                         Авторизація
                     </Header>
                     <Form                        
@@ -80,7 +80,7 @@ class Auth extends PureComponent {
                                 validateOnBlur
                             />                            
                             <Button 
-                                color="teal"
+                                color="blue"
                                 fluid
                                 disabled={isLoading}
                                 size="large">

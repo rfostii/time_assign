@@ -1,7 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import shortid from 'shortid';
-import { Header, Input, FormComponents } from '../';
+import { 
+    Header,
+    FormComponents, 
+    Checkbox 
+} from '../';
 
 export default class Filter extends PureComponent {
     static propTypes = {
@@ -15,19 +19,22 @@ export default class Filter extends PureComponent {
     static defaultProps = {
         selected: [],
         onFilterChange: null,
-    };
+    };    
 
     selectedCheckboxes = new Set();
 
-    componentDidMount() {
+    componentDidUpdate(prevProps) {
         const { selected } = this.props;
-        if (!this.selectedCheckboxes.size && selected.length) {
+        if (prevProps.selected !== selected) {
             this.preselect(selected);
-        }        
+        }
     }
 
-    preselect(selected) {        
-        selected.forEach(option => this.selectedCheckboxes.add(option));
+    preselect(selected) {
+        this.selectedCheckboxes.clear();
+        selected.forEach(option => {
+            this.selectedCheckboxes.add(option);
+        });
     }
 
     isSelected(value) {
@@ -35,14 +42,13 @@ export default class Filter extends PureComponent {
         return selected.includes(value);
     }
 
-    onSelect = (e, control) => {
+    onSelect = (value, checked) => {
         const { field, onFilterChange } = this.props;
-        const value = control.value;
         
-        if (this.selectedCheckboxes.has(value)) {
-            this.selectedCheckboxes.delete(value);
-        } else {
+        if (checked) {
             this.selectedCheckboxes.add(value);
+        } else {
+            this.selectedCheckboxes.delete(value);
         }        
         onFilterChange(field, Array.from(this.selectedCheckboxes));
     }
@@ -51,24 +57,22 @@ export default class Filter extends PureComponent {
         const {
             title,
             options,
-            field,            
-            onFilterChange
-         } = this.props;
+            field,
+        } = this.props;
 
         return (
-            <FormComponents.Group grouped onChange={onFilterChange}>
+            <FormComponents.Group grouped>
                 <Header as="h3">{title}</Header>
                 {options.map(option => (
-                    <Input
-                        component={FormComponents.Checkbox}
+                    <Checkbox 
                         key={shortid.generate()}
                         field={field}
                         label={option.name}
                         value={option.value}
-                        onChange={this.onSelect}  
+                        onChange={this.onSelect}
                         defaultChecked={this.isSelected(option.value)}
                     />
-                ))}                            
+                ))}
             </FormComponents.Group>
         );
     }

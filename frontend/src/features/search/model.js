@@ -1,45 +1,34 @@
-import { search } from './api';
+import shortid from 'shortid';
+import { loadCities } from '../company/api';
 
 const initialState = {
-  isLoading: false,
-  results: [], 
-  value: '',
-  selected: null,
+    cities: [],
 };
 
 export default {
-  state: initialState,
-  reducers: {
-    onChange(state, value) {
-      state.value = value;
+    state: initialState,
+    reducers: {
+        loadCitiesSuccess(state, cities) {
+            state.cities = cities.map(({ city }) => ({
+                id: shortid.generate(),
+                city,
+            }));
+        },        
+        reset(state) {
+            Object.keys(state).forEach((name) => {
+                state[name] = initialState[name];
+            });
+        },
     },
-    onStart(state) {
-      state.isLoading = true;
-    },
-    onSuccess(state, companies) {
-        state.results = companies.map(company => ({
-            ...company,
-            company_id: company.id
-        }));
-        state.isLoading = false;      
-    },
-    onSelect(state, selected) {
-      state.selected = selected;
-    },
-    reset() {
-      return initialState;
-    },
-  },
-  effects: () => ({
-    async search(query) {
-        this.onStart();
-
-      const companies = await search(query);
-      this.onSuccess(companies);
-    },
-  })
+    effects: () => ({
+        async search(data) {
+            console.log(data);
+        },
+        async loadCities(query) {
+            const cities = await loadCities(query);
+            this.loadCitiesSuccess(cities);
+        },
+    })
 };
 
-export const getSeachResults = state => state.companySearch.results;
-export const getLoadingStatus = state => state.companySearch.isLoading;
-export const getValue = state => state.companySearch.value;
+export const getCities = state => state.searchForm.cities;

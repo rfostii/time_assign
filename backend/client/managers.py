@@ -3,7 +3,6 @@ from django.contrib.auth.models import BaseUserManager
 
 
 class ClientManager(BaseUserManager):
-
     def _create_user(self, email, password, is_staff, is_superuser, **extra_fields):
         now = timezone.now()
         if not email:

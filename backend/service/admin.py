@@ -8,6 +8,5 @@ class ServiceAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     pass
 
-
 admin.site.register(Service, ServiceAdmin)
 admin.site.register(Category, CategoryAdmin)
