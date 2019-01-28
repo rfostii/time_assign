@@ -15,7 +15,42 @@ body {
 .error .field select, 
 .error .field textarea,
 .ui.selection.dropdown.error {
-    border-color: #9f3a38 !important;
+    border-color: #9f3a38 !important;    
+}
+
+input,
+select,
+textarea,
+.field input,
+.field select, 
+.field textarea,
+.ui.selection.dropdown,
+.ui.segment,
+.ui.button,
+.ui.message,
+.ui.dropdown,
+.ui.secondary.menu .active.item,
+.ui.secondary.menu .dropdown.item>.menu, .ui.text.menu .dropdown.item>.menu,
+.ui.search>.results,
+.ui.selection.dropdown .menu,
+.ui.modal {
+    border-radius: 0 !important;
+}
+
+.ui.modal,
+.ui.active.modal {
+    margin: 0 auto !important;
+    top: auto !important;
+    left: auto !important;
+    transform-origin: center !important;
+    transition: all ease .5s;
+}
+
+@media only screen and (max-width: 767px) {
+    .ui.container {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
 }
 
 .ta-validation-error {

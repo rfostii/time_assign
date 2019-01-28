@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { URL } from '../../constants';
+import { URL } from '../constants';
 
 export const loadCompanyBySlug = async (slug) => {
     const resp = await axios.get(`${URL}/api/companies/${slug}`);

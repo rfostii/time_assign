@@ -1,0 +1,39 @@
+.ta-sidebar {
+    height: 100vh;
+    margin-top: 2rem;
+    position: relative;
+}
+
+.ta-sidebar__toggler {
+    margin: 1rem 0 !important;
+}
+
+.ta-sidebar__controls {
+    height: 2rem;
+    position: relative;
+}
+
+.ta-sidebar__close {
+    cursor: pointer;
+    float: right;
+}
+
+.ta-sidebar__sidebar {
+    background-color: #fff;
+    box-shadow: none !important; 
+    padding: 1rem 2rem;
+}
+
+.ta-sidebar__pusher:after {
+    background-color: #fff !important;
+}
+
+@media screen and (max-width: 768px) {
+    .ta-sidebar__sidebar {
+        width: 100% !important;
+    }
+
+    .ta-sidebar__pushable {
+        overflow: visible;
+    }
+}

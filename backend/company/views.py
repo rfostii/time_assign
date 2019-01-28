@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from django.http import Http404
+from django.db.models import Avg, Count
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
 from rest_framework import generics
@@ -25,6 +26,12 @@ class CompaniesView(generics.ListCreateAPIView):
     search_fields = ('name', 'city', 'street', 'phone_number')
     lookup_field = 'slug'
 
+    def get_queryset(self):        
+        return Company.objects.annotate(
+            rating=Avg('feedback__rating'),
+            feedbacks_total=Count('feedback')
+        )
+
 class CompanyView(APIView):
     def get(self, request, pk=None, slug=None, format=None):        
         query = {}
@@ -45,7 +52,7 @@ class CompanyView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
-class CompaniesCitiesView(generics.ListCreateAPIView):
+class CompanyCitiesView(generics.ListCreateAPIView):
     queryset = Company.objects.values('city').distinct()
     serializer_class = CompanyCitySerializer
     filter_backends = (SearchFilter,)

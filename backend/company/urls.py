@@ -3,7 +3,7 @@ from .views import (
     CompanyView,
     CompaniesView,
     CategoriesView,
-    CompaniesCitiesView
+    CompanyCitiesView
 )
 
 
@@ -16,5 +16,5 @@ urlpatterns = [
     url(r'^companies/(?P<pk>[0-9]+)/$', CompanyView.as_view(), name="company_id"),
     url(r'^companies/(?P<slug>[-\w]+)/$', CompanyView.as_view(), name="company_slug"),
     
-    url(r'^companies/locations/get/$', CompaniesCitiesView.as_view(), name="company_locations"),
+    url(r'^companies/locations/get/$', CompanyCitiesView.as_view(), name="company_locations"),
 ]

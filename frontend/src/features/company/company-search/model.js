@@ -1,4 +1,4 @@
-import { search } from '../api';
+import { search } from '../../../api/company';
 
 const initialState = {
   isLoading: false,

@@ -17,22 +17,24 @@ class CategorySerializer(serializers.ModelSerializer):
         return instance
 
 class CompanySerializer(serializers.ModelSerializer):
+    rating = serializers.FloatField()
+    feedbacks_total = serializers.IntegerField()
     category = CategorySerializer()
-    procedures = ServiceSerializer(many=True)
+    services = ServiceSerializer(many=True)
 
     class Meta:
         model = Company
         fields = (
-            'id', 'name', 'category', 'procedures', 'logo', 'city', 
+            'id', 'name', 'category', 'services', 'logo', 'city', 
             'street', 'house_number', 'phone_number', 'slug',
-            'description', 'address', 'is_active'
-        )        
+            'description', 'address', 'is_active', 'rating', 'feedbacks_total'
+        )
 
     def create(self, validated_data):
         return Company.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
-        instance.title = validated_data.get('title', instance.title)        
+        instance.title = validated_data.get('title', instance.title)
         instance.save()
         return instance
 

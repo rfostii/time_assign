@@ -1,4 +1,4 @@
-import { loadCategories } from '../api';
+import { loadCategories } from '../../../api/company';
 
 const initialState = {
     categories: [],

@@ -6,9 +6,9 @@ import {
 } from './formatters';
 
 const defaultFilters = {    
-    price: { min: 0, max: 100 },
+    price: { min: 0, max: 0 },
     category: [],
-    procedure: [],
+    service: [],
     city: null
 };
 
@@ -25,7 +25,7 @@ const getStateFromUrl = () => {
 
 export default {
     state: getStateFromUrl(),
-    reducers: {        
+    reducers: {   
         populate(state, filters) {
             Object.keys(filters).forEach((name) => {
                 state[name] = filters[name];
@@ -41,7 +41,7 @@ export default {
         },
     },
     effects: (dispatch) => ({
-        init() {
+        init(payload, state) {
             this.populate(getStateFromUrl());
             dispatch.searchResults.loadCompanies();
         },

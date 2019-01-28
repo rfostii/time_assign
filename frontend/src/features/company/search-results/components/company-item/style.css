@@ -1,0 +1,346 @@
+.ta-search-result {
+    position: relative;
+    display: block;
+    background-color: #fff;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-box-shadow: 0 2px 12px 0 rgba(0,0,0,.14);
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,.14);
+    text-decoration: none;
+}
+
+.ta-search-result-summary__container {
+    display: flex;    
+    -ms-flex-direction: row;
+    flex-direction: row;
+}
+
+.ta-search-result-summary__image-container {
+    position: relative;        
+}
+
+.eyecatcher__banner-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.eyecatcher__banner {
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #ff851b;
+    position: absolute;
+    right: -30px;
+    top: 22px;
+    width: 130px;
+    padding: 0;
+    line-height: 27px;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.ta-search-result-summary__text-container {
+    padding: 16px 16px 12px;
+}
+
+.ta-search-result-summary__name {
+    margin: -2px 0 6px;
+    padding: 0;
+    color: #4d4d4d;
+    font-size: 20px;
+    line-height: 23px;
+    font-weight: 700;
+}
+
+.ta-search-result-summary__location-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 11px;
+}
+
+.ta-search-result-summary__label {
+    margin-bottom: 6px;
+    font-size: 14px;
+    line-height: 17px;
+    color: grey;
+}
+
+.ta-search-result-summary__rating-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: baseline;
+    -ms-flex-align: baseline;
+    align-items: baseline;
+    height: 22px;
+}
+
+.ta-search-result-summary__rating {
+    margin-right: 10px;
+    font-size: 16px;
+    line-height: 17px;
+    color: #cb6;
+}
+
+.rating__container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.rating__label {
+    margin-right: .5rem; 
+}
+
+.rating__star-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.ta-search-result-summary__label {
+    margin-bottom: 6px;
+    font-size: 14px;
+    line-height: 17px;
+    color: grey;
+}
+
+.ta-search-result-Service__alternate-row-style {
+    background-color: #f2f2f2;
+}
+
+.ta-search-result-service__container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    overflow: hidden;
+    padding: 14px 16px;
+}
+
+.ta-search-result-service__info-container {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    margin-right: 32px;
+}
+
+.ta-search-result-service__name {
+    margin-bottom: 3px;
+    color: #4d4d4d;
+    font-size: 16px;
+    line-height: 21px;
+}
+
+.ta-search-result-service__duration {
+    color: grey;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.ta-search-result-service__price-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+    align-items: flex-end;
+}
+
+.ta-search-result-service__price-label {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: baseline;
+    -ms-flex-align: baseline;
+    align-items: baseline;
+    white-space: nowrap;
+}
+
+.ta-search-result-service__price {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 20px;
+    color: #4d4d4d;
+}
+
+.ta-search-result-quickview__more {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex !important;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 16px;
+}
+
+.ta-search-result-quickview__cta {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 22px;
+    color: #2185d0;
+}
+
+.ta-search-result-quickview__chevron {
+    cursor: pointer;
+    color: #2185d0;
+    -webkit-transition: -webkit-transform .2s ease-out;
+    transition: -webkit-transform .2s ease-out;
+    -o-transition: transform .2s ease-out;
+    transition: transform .2s ease-out,-webkit-transform .2s ease-out;
+}
+
+.ta-search-result-quickview__content {
+    cursor: default;  
+    overflow: hidden;
+    padding: 0 1rem;    
+}
+
+.ta-search-result-quickview__content--collapsed {
+    height: 0;
+}
+
+.ta-search-result-quickview__content-inner {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.ta-search-result-quickview__opening-times-container {
+    margin-bottom: 16px;
+}
+
+.ta-venue-opening-times__table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.ta-venue-opening-times__bold {
+    font-weight: 700;
+}
+
+.ta-venue-opening-times__row {
+    height: 31px;
+    color: #4d4d4d;
+    font-size: 14px;
+    line-height: 31px;
+}
+
+.ta-venue-opening-times__table > tbody > tr > .ta-venue-opening-times__day-column {
+    width: auto;
+    padding-right: 16px;
+    text-align: left;
+}
+
+.ta-venue-opening-times__table > tbody > tr > td {
+    white-space: nowrap;
+}
+
+.ta-venue-opening-times__open .ta-venue-opening-times__indicator {
+    background-color: #2ecc40;    
+}
+
+.ta-venue-opening-times__closed .ta-venue-opening-times__indicator {
+    background-color: #ff695e;    
+}
+
+.ta-venue-opening-times__indicator {
+    border-radius: 50%;
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 27px;
+}
+
+.ta-venue-opening-times__label-dayname-short {
+    display: none;
+}
+
+.ta-venue-opening-times__label-dayname {
+    display: inline-block;
+}
+
+.ta-venue-opening-times__table > tbody > tr > td {
+    width: 1%;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.ta-venue-opening-times__label-padding {
+    padding-left: 4px;
+}
+
+.ta-venue-opening-times__table > tbody > tr > .ta-venue-opening-times__separator-column {
+    text-align: center;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.ta-venue-opening-times__table > tbody > tr > td {
+    width: 1%;
+    white-space: nowrap;
+}
+
+.ta-venue-opening-times__closed {
+    color: #b3b3b3;
+}
+
+.ta-search-result-quickview__description {
+    color: #4d4d4d;
+    margin-bottom: 16px;
+    line-height: 18px;
+}
+
+.ta-search-result-service__price-affix {
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 700;
+    color: #4d4d4d;
+}
+
+.ta-search-result-service__discount {
+    margin-top: 4px;
+    font-size: 14px;
+    line-height: 17px;
+    color: #00a5ad;
+}
+
+.ta-search-result-summary__venue-tag {
+    display: block;
+    margin-bottom: 5px;
+}
+
+@media only screen and (max-width: 767px) {
+    .ta-search-result-summary__container {        
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+
+    .ta-search-result-summary__image {        
+        width: 100% !important;
+    }
+}

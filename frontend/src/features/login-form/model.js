@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { login } from './api';
+import { login } from '../../api/user';
 import { LOCAL_STORAGE_KEYS } from '../../constants';
 
 const initialState = {

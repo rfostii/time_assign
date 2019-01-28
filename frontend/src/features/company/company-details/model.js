@@ -1,4 +1,4 @@
-import { loadCompanyBySlug } from '../api';
+import { loadCompanyBySlug } from '../../../api/company';
 
 export default {
   state: {

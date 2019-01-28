@@ -2,10 +2,20 @@ from rest_framework import serializers
 from .models import Service
 
 
-class ServiceSerializer(serializers.ModelSerializer):    
+class EmployeeSerializer(serializers.Serializer):
+    id = serializers.ReadOnlyField()  
+    first_name = serializers.CharField(max_length=30)
+    last_name = serializers.CharField(max_length=30)
+    
+class ServiceSerializer(serializers.ModelSerializer):
+    employee = EmployeeSerializer();
+   
     class Meta:
         model = Service
-        fields = ('id', 'company', 'image', 'name', 'description', 'price', 'currency', 'period')
+        fields = (
+            'id', 'company', 'image', 'name', 'description',
+             'price', 'currency', 'period', 'employee', 'duration'
+        )
 
     def create(self, validated_data):
         return Service.objects.create(**validated_data)

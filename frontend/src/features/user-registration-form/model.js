@@ -1,4 +1,4 @@
-import { register } from './api';
+import { register } from '../../api/user';
 
 export default {
     state: {

@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router';
 import { Item, Loader } from '../../../components';
-import CompanyItem from './components/CompanyItem';
 import { getCompanies, isLoading } from './model';
+import { CompanyItem } from './components/company-item';
+
+import './style.css';
 
 export class SearchResults extends PureComponent {
     static propTypes = {
@@ -25,8 +27,8 @@ export class SearchResults extends PureComponent {
         return (
             <Item.Group>
                 {isLoading && <Loader />}
-                {companies.map(company => 
-                    <CompanyItem 
+                {companies.map(company =>
+                    <CompanyItem
                         key={company.id} 
                         company={company} 
                     />

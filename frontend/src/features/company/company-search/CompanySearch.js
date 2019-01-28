@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 import { 
     Search, 
     Item,
-    Form
+    Form,
+    Rating
 } from '../../../components';
 import {
     getSeachResults,
@@ -37,14 +38,19 @@ export class CompanySearch extends PureComponent {
     resultRenderer = (company) => {
         return (
             <Item key={company.companyId}>
-                <Item.Image src={company.logo} />
-                <Item.Header>
-                    <Link to={composeSearchLinkFromCompany(company)} className="ta-company__link">
-                        {company.name} - {company.city}
-                    </Link>
-                </Item.Header>
+                <Item.Image src={company.logo} />                
                 <Item.Content verticalAlign='middle'>
-                    {company.address}
+                    <Item.Header>
+                        <Link to={composeSearchLinkFromCompany(company)} className="ta-company__link">
+                            {company.name} - {company.city}
+                        </Link>
+                    </Item.Header>                    
+                    <Item.Description>
+                        {company.address}
+                    </Item.Description>
+                    <Item.Extra>
+                        <Rating maxRating={5} defaultRating={company.rating} disabled icon='star' size='mini' />
+                    </Item.Extra>                    
                 </Item.Content>
             </Item>
         );

@@ -1,5 +1,5 @@
 import shortid from 'shortid';
-import { loadCities } from '../company/api';
+import { loadCities } from '../../api/company';
 
 const initialState = {
     cities: [],

@@ -53,7 +53,7 @@ export class Categories extends PureComponent {
 
     render() {
         return (
-            <Menu secondary>
+            <Menu text>
                 {this.renderItems()}
             </Menu>
         )

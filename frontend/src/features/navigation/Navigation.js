@@ -60,7 +60,7 @@ class Navigation extends PureComponent {
 
         return (
             <Visibility once={false}>   
-                <Menu borderless>
+                <Menu secondary>
                     <Menu.Menu position='left'>
                         <Menu.Item header>
                             <NavLink to="/" activeClassName="active">{APP_NAME}</NavLink>

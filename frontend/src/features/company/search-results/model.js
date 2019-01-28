@@ -1,4 +1,4 @@
-import { loadCompanies } from '../api';
+import { loadCompanies } from '../../../api/company';
 import { getFiltersForUrl } from '../../filters/model';
 import getQueryParam from '../../../utils/getQueryParam';
 

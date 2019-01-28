@@ -1,5 +1,7 @@
 export {
     Item,
+    Icon,
+    Image,
     Container,
     Button,    
     Grid,
@@ -7,10 +9,14 @@ export {
     Message,
     Segment,
     Menu,
+    Modal,
     Tab,
+    List,
     Visibility,
     Dropdown,
     Dimmer,    
+    Ref,
+    Rating,
     Form as FormComponents,
 } from 'semantic-ui-react';
 export * from './validation';
@@ -24,3 +30,5 @@ export { default as Breadcrumb } from './breadcrumb/Breadcrumb';
 export { default as Calendar } from './calendar/Calendar';
 export { default as Search } from './search/Search';
 export { default as Loader } from './loader/Loader';
+export { default as Sidebar } from './sidebar/Sidebar';
+export { default as withScreen } from './withScreen/withScreen';

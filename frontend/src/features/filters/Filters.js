@@ -43,10 +43,10 @@ class Filters extends PureComponent {
     }
 
     render() {    
-        const { filters: { price, category, procedure } } = this.props;
+        const { filters: { price, category, service } } = this.props;
 
         return (
-            <Form>
+            <Form className="ta-filters">
                 <CitySearch
                     label="Населений пункт"
                     onSelect={this.onCitySelect}
@@ -75,11 +75,11 @@ class Filters extends PureComponent {
                 />
                 <Filter
                     title="Послуги"
-                    field="procedure"
+                    field="service"
                     options={[
                         { name: 'Стрижка чоловіча', value: '1' },
                     ]}
-                    selected={procedure}
+                    selected={service}
                     onFilterChange={this.onMultiFilterChange}
                 />                                                              
             </Form>

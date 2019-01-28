@@ -1,6 +1,6 @@
 export const formatFromValuesToUrl = (filters) => {
     const { price, ...rest } = filters;
-    const range = { priceMin: price.min || undefined, priceMax: price.max || undefined };
+    const range = { price_min: price.min || undefined, price_max: price.max || undefined };
     return {
         ...rest,
         ...range
@@ -8,8 +8,8 @@ export const formatFromValuesToUrl = (filters) => {
 }
 
 export const formatFromUrlToValues = (params) => {
-    const { priceMax, priceMin, ...rest } = params;
-    const price = priceMax ? { min: +(priceMin || 0), max: +priceMax, } : null;
+    const { price_max, price_min, ...rest } = params;
+    const price = price_max ? { min: +(price_min || 0), max: +price_max, } : null;
 
     return {
         price,

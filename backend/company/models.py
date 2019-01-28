@@ -49,9 +49,8 @@ class Company(models.Model):
     latitude = models.DecimalField(max_digits=30, decimal_places=20, verbose_name=_('Широта'))
     longitude = models.DecimalField(max_digits=30, decimal_places=20, verbose_name=_('Довгота'))
     is_active = models.BooleanField(default=False, verbose_name=_('Активний'))
-    procedures = models.ManyToManyField('service.Service', verbose_name=_('Послуги'), related_name='procedures', blank=True)
-    pictures = models.ManyToManyField('Picture', verbose_name=_('Зображення'))
-
+    services = models.ManyToManyField('service.Service', verbose_name=_('Послуги'), related_name='services', blank=True)
+    pictures = models.ManyToManyField('Picture', verbose_name=_('Зображення'))    
     objects = CompanyManager()
 
     class Meta:

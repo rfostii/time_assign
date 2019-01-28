@@ -3,6 +3,6 @@ from .models import Feedback
 
 
 class FeedbackAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('company', 'employee', 'client', 'rating', 'comment')
 
 admin.site.register(Feedback, FeedbackAdmin)

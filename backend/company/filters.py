@@ -15,10 +15,10 @@ class CompanyFilterBackend(BaseFilterBackend):
         company_slug = request.query_params.get('company')
         radius = request.query_params.get('radius', 5000)
         limit = request.query_params.get('limit', 50)
-        price_min = request.query_params.get('priceMin', 0)
-        price_max = request.query_params.get('priceMax', None)
+        price_min = request.query_params.get('price_min', 0)
+        price_max = request.query_params.get('price_max', None)
         categories = request.query_params.getlist('category[]', None)
-        procedures = request.query_params.getlist('procedure[]', None)
+        services = request.query_params.getlist('service[]', None)
         params = {};
 
         queryset = queryset.filter(is_active=True)
@@ -41,13 +41,13 @@ class CompanyFilterBackend(BaseFilterBackend):
         if categories:
             queryset = queryset.filter(category__pk__in=categories)
         
-        if procedures:
-            queryset = queryset.filter(procedures__pk__in=procedures)
+        if services:
+            queryset = queryset.filter(services__pk__in=services)
 
         if price_max:
             queryset = queryset.filter(
-                Q(procedures__price__gte=price_min) & 
-                Q(procedures__price__lte=price_max)
+                Q(services__price__gte=price_min) & 
+                Q(services__price__lte=price_max)
             )
         
         return queryset

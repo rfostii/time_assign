@@ -5,3 +5,10 @@
 .ta-search__tab .tab {
     border: none !important;
 }
+
+@media screen and (max-width: 768px) {
+    .ta-search__tab .tab {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}

@@ -8,7 +8,7 @@ class FeedbackSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Feedback
-        fields = ('id', 'client', 'employee', 'company', 'assessment')
+        fields = ('id', 'client', 'employee', 'company', 'rating')
 
     def create(self, validated_data):
         return Feedback.objects.create(**validated_data)

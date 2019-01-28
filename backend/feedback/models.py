@@ -6,7 +6,7 @@ class Feedback(models.Model):
     company = models.ForeignKey('company.Company', verbose_name=_('Заклад'))
     employee = models.ForeignKey('client.Client', related_name='feedback_employee', verbose_name=_('Працівник'))    
     client = models.ForeignKey('client.Client', related_name='feedback_creator', verbose_name=_('Клієнт'))    
-    assessment = models.FloatField(verbose_name=_('Оцінка'))
+    rating = models.IntegerField(verbose_name=_('Оцінка'))
     comment = models.TextField(verbose_name=_('Коментар'))
 
     class Meta:
